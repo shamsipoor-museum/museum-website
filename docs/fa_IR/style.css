@@ -12,8 +12,12 @@ table {
   }
   
 td, th {
-    border: 1px solid black;
+    border: 1px solid #ffd966;
     padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #fff2cc;
 }
 
 /* tr {
