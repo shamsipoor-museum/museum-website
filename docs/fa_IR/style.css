@@ -1,5 +1,7 @@
 .part-heading {
     text-align: center;
+    font-family: BTitr;
+    font-display: swap;
 }
 
 .part-pic {
@@ -9,6 +11,8 @@
 table {
     border-collapse: collapse;
     width: 100%;
+    font-family: BNazanin;
+    font-display: swap;
   }
   
 td, th {
@@ -18,6 +22,11 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #fff2cc;
+}
+
+.table-pseudo-heading {
+    font-family: BTitr;
+    font-display: swap;
 }
 
 /* tr {
