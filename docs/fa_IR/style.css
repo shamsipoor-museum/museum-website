@@ -1,4 +1,18 @@
-.fa_IR_explanation {
+.part-heading {
+    text-align: center;
+}
+
+.part-pic {
+    border-radius: 30px;
+}
+
+.fa-IR-explanation {
     font-family: BNazanin;
+    font-display: swap;
+}
+
+
+.fa-IR-explanation-header{
+    font-family: BTitr;
     font-display: swap;
 }
