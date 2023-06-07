@@ -2,8 +2,9 @@
     font-family: BNazanin;
     src: url('fonts/BNazanin.woff2') format('woff2'),
          url('fonts/BNazanin.woff') format('woff');
+    font-weight: 400 /* Default for normal text */
 }
-  
+
 @font-face {
     font-family: BNazanin;
     src: url('fonts/BNazanin\ Bold.woff2') format('woff2'),
