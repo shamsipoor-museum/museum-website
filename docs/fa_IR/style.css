@@ -4,13 +4,19 @@
     font-display: swap;
 }
 
+.part-text-heading {
+    min-height: 4vh;
+}
+
 .part-pic {
     border-radius: 30px;
+    min-height: 37.61vh;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
+    min-height: 20.03vh;
     margin-top: 2%;
     margin-bottom: 2%;
     font-family: BNazanin;
