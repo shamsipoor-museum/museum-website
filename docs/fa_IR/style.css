@@ -23,7 +23,7 @@ table {
     border-collapse: collapse;
     width: 100%;
     min-height: 20.03vh;  /* based on original pdf */
-    font-size: 1.8vmax;  /* a magic number based on guess work; we have no css only solution other than this */
+    font-size: 1.7vmax;  /* a magic number based on guess work; we have no css only solution other than this */
     margin-top: 2%;
     margin-bottom: 2%;
     font-family: BNazanin;
