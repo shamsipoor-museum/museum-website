@@ -12,6 +12,7 @@ body {
 
 .part-text-heading {
     min-height: 4vh;
+    font-size: 3.5vmax;  /* a magic number for heading */
 }
 
 .part-pic {
@@ -52,11 +53,13 @@ tr:nth-child(even) {
 
 .fa-IR-explanation {
     font-family: BNazanin;
+    font-size: 1.7vmax;  /* same magic number from table */
     font-display: swap;
 }
 
 
 .fa-IR-explanation-header{
     font-family: BTitr;
+    font-size: 2.1vmax;  /* just a magic number bigger than normal explanation text and smaller than part-text-heading */
     font-display: swap;
 }
