@@ -54,6 +54,7 @@ tr:nth-child(even) {
 .fa-IR-explanation {
     font-family: BNazanin;
     font-size: 1.7vmax;  /* same magic number from table */
+    text-align: justify;
     font-display: swap;
 }
 

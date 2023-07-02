@@ -1,10 +1,24 @@
+# Copyright 2023 MohammadMohsen Akbarpoor Darabi (M. MAD)
+
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation, either version 3 of the License, or (at your
+# option) any later version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+# more details.
+
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <https://www.gnu.org/licenses/>.
+
 import sys
-from os import path as osp
+# from os import path as osp
+from typing import Optional
 
-import pdfquery as pq
+# import pdfquery as pq
 import fitz
-
-sdfdfd= ()
 
 
 def fitz_write_text(path: str, whole_text: list):
@@ -29,15 +43,15 @@ def fitz_write_image(doc, path: str, img):
     pix.save(path)  # save the image as png
 
 
-def pdf_to_xml(src: str, dst: str, encoding: str = "utf-8"):
-    pdf = pq.PDFQuery(src)
-    pdf.load()
-    pdf.tree.write(dst, pretty_print=True, encoding=encoding)
+# def pdf_to_xml(src: str, dst: str, encoding: str = "utf-8"):
+#     pdf = pq.PDFQuery(src)
+#     pdf.load()
+#     pdf.tree.write(dst, pretty_print=True, encoding=encoding)
 
 
-def main():
-    src = sys.argv[1]  # if sys.argv[1] else ""
-    dst = sys.argv[2]  # if sys.argv[2] else ""
+def main(src: Optional[str] = None, dst: Optional[str] = None):
+    src = src if src is not None else sys.argv[1]
+    dst = dst if dst is not None else sys.argv[2]
     verbosity = "--verbose" in sys.argv
     # pdf_to_xml(src, dst)
 
@@ -46,7 +60,8 @@ def main():
     # extracted_data = pdf.extract([("part_pic", "LTImage")])
 
     pdf = fitz.open(src, filetype="pdf")
-    whole_text = []
+    # whole_text = []
+    whole_images = []
     for page_index in range(len(pdf)):
         page = pdf[page_index]
 
@@ -58,12 +73,17 @@ def main():
             else:
                 print("No images found on page", page_index+1)
 
-        for image_index, img in enumerate(image_list, start=1):
-            fitz_write_image(pdf, osp.join(dst, f"page_{page_index+1}-image_{image_index}.png"), img)
+        print(len(image_list), image_list)
+        whole_images.append(image_list[-1])
+        # for image_index, img in enumerate(image_list, start=1):
+        #     fitz_write_image(pdf, osp.join(dst, f"page_{page_index+1}-image_{image_index}.png"), img)
 
-        page_text = page.get_text().encode("utf8")  # get plain text (is in UTF-8)
-        whole_text.append(page_text)
-    fitz_write_text(osp.join(dst, "whole_text.txt"), whole_text)
+        # page_text = page.get_text().encode("utf8")  # get plain text (is in UTF-8)
+        # whole_text.append(page_text)
+    # print(whole_images)
+    fitz_write_image(pdf, dst, whole_images[0])
+    # fitz_write_image(pdf, osp.join(dst, f"{osp.splitext(osp.basename(src))[0]}.png"), whole_images[0])
+    # fitz_write_text(osp.join(dst, "whole_text.txt"), whole_text)
     # write_pic(dst, extracted_data["part_pic"])
 
 
