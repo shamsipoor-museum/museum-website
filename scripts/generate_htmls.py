@@ -80,7 +80,7 @@ def main(src_dir: Optional[str] = None):
         loader=FileSystemLoader(osp.join(containing_dir, "templates")),
         autoescape=select_autoescape()
     )
-    template = env.get_template("template.html")
+    template = env.get_template("parts_template.html")
     for dirpath, dirnames, filenames in os.walk(src_dir):
         for f in filenames:
             if f.endswith(".docx"):

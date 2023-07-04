@@ -23,17 +23,19 @@ import qrcode as qr
 PREFIX = "https://shamsipoor-museum.github.io/museum-website/fa_IR/parts/"
 
 
-def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
+def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,
+         dry_run: bool = True):
     src_dir = src_dir if src_dir is not None else sys.argv[1]
     dst_dir = dst_dir if dst_dir is not None else sys.argv[2]
     for dirpath, dirnames, filenames in os.walk(src_dir):
         for f in filenames:
             if f.endswith(".html"):
-                # print(PREFIX + osp.splitext(f)[0])
                 f = osp.splitext(f)[0]
-                qrcode = qr.make(PREFIX + f)
-                qrcode.save(osp.join(dst_dir, f + ".png"))
+                print(PREFIX + f)
+                if not dry_run:
+                    qrcode = qr.make(PREFIX + f)
+                    qrcode.save(osp.join(dst_dir, f + ".png"))
 
 
 if __name__ == "__main__":
-    main(src_dir="docs/fa_IR/parts", dst_dir="scripts/generated_content")
+    main(src_dir="docs/fa_IR/parts", dst_dir="scripts/generated_content", dry_run=True)
