@@ -17,15 +17,19 @@ body {
 
 .part-pic {
     border-radius: 30px;
-    /* min-height: 36vh; */
-    max-width: 100%;
+    /* min-height: 36vh; */  /* experimental code added here to comply with
+                                the original master PDF (choke_987) but it
+                                makes wide pictures to overflow horizontally,
+                                specially on mobile phones */
+    max-width: 100%;  /* this code fixes the horizontal overflow problem */
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
     min-height: 20.03vh;  /* based on original pdf */
-    font-size: 1.7vmax;  /* a magic number based on guess work; we have no css only solution other than this */
+    font-size: 1.7vmax;  /* a magic number based on guess work; we have no css
+                            only solution other than this */
     margin-top: 2%;
     margin-bottom: 2%;
     font-family: BNazanin;
