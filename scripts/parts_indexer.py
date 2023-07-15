@@ -67,8 +67,8 @@ def extract_index(src_dir: str, exceptions: tuple):
     for dirpath, dirnames, filenames in os.walk(src_dir):
         for f in filenames:
             if f.endswith(".html"):
-                if f in exceptions :
-                    continue                    
+                if f in exceptions:
+                    continue
                 index.append(extract_index_row(dirpath, f))
     return index
 
@@ -76,10 +76,6 @@ def extract_index(src_dir: str, exceptions: tuple):
 def write_templated_data(data, template, path, mode="w", title="فهرست قطعات"):
     with open(path, mode=mode) as f:
         f.write(template.render(title=title, index=data))
-
-
-def generate_index_html():
-    pass
 
 
 def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
@@ -92,7 +88,7 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
     )
     template = env.get_template("parts_index_template.html")
 
-    index = extract_index(src_dir, exceptions=("index.html", ))
+    index = extract_index(src_dir, exceptions=("index.html", "qr_codes.html"))
     write_templated_data(index, template, osp.join(dst_dir, "index.html"))
 
 

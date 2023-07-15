@@ -27,9 +27,12 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,
          dry_run: bool = True):
     src_dir = src_dir if src_dir is not None else sys.argv[1]
     dst_dir = dst_dir if dst_dir is not None else sys.argv[2]
+    exceptions = ("index.html", )
     for dirpath, dirnames, filenames in os.walk(src_dir):
         for f in filenames:
             if f.endswith(".html"):
+                if f in exceptions:
+                    continue
                 f = osp.splitext(f)[0]
                 print(PREFIX + f)
                 if not dry_run:
@@ -38,4 +41,4 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,
 
 
 if __name__ == "__main__":
-    main(src_dir="docs/fa_IR/parts", dst_dir="scripts/generated_content", dry_run=True)
+    main(src_dir="docs/fa_IR/parts", dst_dir="docs/fa_IR/parts/qr_codes", dry_run=True)
