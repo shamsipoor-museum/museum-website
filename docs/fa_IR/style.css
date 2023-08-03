@@ -80,7 +80,6 @@ tr:nth-child(even) {
     font-display: swap;
 }
 
-
 .fa-IR-explanation-header{
     font-family: BTitr;
     font-size: 2.1vmax;  /* just a magic number bigger than normal explanation text and smaller than part-text-heading */
