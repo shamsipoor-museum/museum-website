@@ -19,13 +19,14 @@ from os import path as osp
 from dataclasses import dataclass
 from typing import Optional, Union
 
+from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 PREFIX = "https://shamsipoor-museum.github.io/museum-website/fa_IR/parts/"
 
 
-@dataclass
+@frozen
 class IndexRow:
     filename: str = ""
     link: str = ""
@@ -38,6 +39,24 @@ class IndexRow:
     manufacturer_country: str = ""
 
 
+@frozen
+class PartTable:
+    name: str = ""
+    manufacturing_date: int = 0
+    category: str = ""
+    manufacturer_name: str = ""
+    manufacturer_country: str = ""
+
+
+@frozen
+class PartsIndexRow:
+    filename: str = ""
+    link: str = ""
+    part_title: str = ""  # There is also a title on top of the page
+    # pic: str = ""
+    table: Optional[PartTable] = None
+
+
 def read_file(path: str):
     with open(path, "r") as f:
         return f.read()
@@ -47,18 +66,19 @@ def extract_index_row(dirpath: str, f: str):
     path = osp.join(dirpath, f)
     f_text = read_file(path)
     soup = BeautifulSoup(f_text, "html.parser")
-    rows = []
-    for row in soup.find_all("tr"):
-        rows.append(row.text.strip("\n").replace("\n", ":").split(":"))
-    return IndexRow(
+    rows = [row.text.strip("\n").replace("\n", ":").split(":")
+            for row in soup.find_all("tr")]
+    return PartsIndexRow(
         filename=f,
         link=f,
         part_title=soup.title.text,
-        part_name=rows[0][1],
-        manufacturing_date=rows[0][3],
-        part_category=rows[1][1],
-        manufacturer_name=rows[1][3],
-        manufacturer_country=rows[2][1]
+        table=PartTable(
+            name=rows[0][1],
+            manufacturing_date=rows[0][3],
+            category=rows[1][1],
+            manufacturer_name=rows[1][3],
+            manufacturer_country=rows[2][1]
+        )
     )
 
 
@@ -83,7 +103,7 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
     dst_dir = dst_dir if dst_dir is not None else sys.argv[2]
     containing_dir = osp.normpath(osp.join(__file__, os.pardir))
     env = Environment(
-        loader=FileSystemLoader(osp.join(containing_dir, "templates")),
+        loader=FileSystemLoader(osp.join(containing_dir, "templates/parts")),
         autoescape=select_autoescape()
     )
     template = env.get_template("parts_index_template.html")
