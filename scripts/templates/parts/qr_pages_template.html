@@ -3,9 +3,9 @@
 <head>
 <title>{{title}}</title>
 <meta name="author" content="M. MAD">
-<link rel="icon" type="image/png" href="../../../favicon.png">
-<link rel="stylesheet" href="../../qr_codes_style.css">
-<link rel="stylesheet" href="../../fonts.css">
+<link rel="icon" type="image/png" href="../../../../favicon.png">
+<link rel="stylesheet" href="../../../qr_pages_style.css">
+<link rel="stylesheet" href="../../../fonts.css">
 </head>
 <body>
 <div class="page-container">
@@ -14,7 +14,7 @@
   <tr>
     {%-  for qr_code in row %}
     <td>
-      <div><img class="qr-code-img" src="{{qr_code}}.png"></div>
+      <div><img class="qr-code-img" src="../{{qr_code}}.png"></div>
       <div class="qr-code-title">{{qr_code.replace("_", " ")}}</div>
     </td>
     {%- endfor %}
