@@ -23,8 +23,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 PREFIX = "https://shamsipoor-museum.github.io/museum-website/fa_IR/parts/"
 
 
-def extract_table(src_dir: str, rows: int = 4, cols: int = 4,
-                  exceptions: tuple = ("index.png", )):
+def extract_qr_table(src_dir: str, rows: int = 5, cols: int = 4,
+                     exceptions: tuple = ("index.png", )) -> tuple:
     pages = []
     for dirpath, dirnames, filenames in os.walk(src_dir):
         for f in filenames:
@@ -41,10 +41,10 @@ def extract_table(src_dir: str, rows: int = 4, cols: int = 4,
                         table.append([])
                     if len(table[-1]) < cols:
                         table[-1].append(osp.splitext(osp.basename(f))[0])
-    return pages
+    return tuple(pages)
 
 
-def write_templated_data(data, template, path, mode="w", title="QR Codes"):
+def write_qr_table(data, template, path, mode="w", title="QR Codes"):
     with open(path, mode=mode) as f:
         f.write(template.render(title=title, table=data))
 
@@ -59,14 +59,14 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,
         autoescape=select_autoescape()
     )
     template = env.get_template("qr_codes_template.html")
-    pages = extract_table(src_dir, rows=5, cols=4)
+    pages = extract_qr_table(src_dir, rows=5, cols=4)
     print(50*"=")
     for table in pages:
         print("[table]", table, "^^^", len(table))
         for row in table:
             print("[row]", row, "^^^", len(row))
     for i, table in enumerate(pages, start=1):
-        write_templated_data(table, template, osp.join(dst_dir, f"qr_codes_{i}.html"), title=f"QR Codes {i}")
+        write_qr_table(table, template, osp.join(dst_dir, f"qr_codes_{i}.html"), title=f"QR Codes {i}")
 
 
 
