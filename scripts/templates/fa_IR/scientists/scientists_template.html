@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa-IR">
+<head>
+<title>{{title}}</title>
+<meta name="author" content="M. MAD">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="stylesheet" href="../scientists_style.css">
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body dir="rtl" align="right">
+<h1 class="scientist-heading scientist-text-heading">{{header}}</h1>
+<div class="scientist-pic-div scientist-heading">
+<img class="scientist-pic" src="pics/wb_shockley.jpg">
+</div>
+<table>
+  <tr>
+    <td><b class="table-pseudo-heading">نام:</b><br>{{table.name}}</td>
+    <td><b class="table-pseudo-heading">زاده:</b><br>{{table.born}}</td>
+  </tr>
+  <tr>
+    <td><b class="table-pseudo-heading">درگذشت:</b><br>{{table.died}}</td>
+    <td><b class="table-pseudo-heading">ملیت:</b><br>{{table.nationality}}</td>
+  </tr>
+  <tr>
+    <td><b class="table-pseudo-heading">محل تحصیل:</b><br>{{table.alma_mater}}</td>
+    <td><b class="table-pseudo-heading">شناخته‌شده برای:</b><br>{{table.known_for}}</td>
+  </tr>
+  <tr>
+    <td><b class="table-pseudo-heading">جایزه‌ها:</b><br>{{table.awards}}</td>
+    <td><b class="table-pseudo-heading">دسته‌بندی:</b><br>{{table.tags}}</td>
+  </tr>
+</table>
+<div class="fa-IR-explanation">
+<h2 class="fa-IR-explanation-header">توضیحات</h2>
+{%-  for paragraph in explanation_paragraphs %}
+<p>{{paragraph}}</p>
+{%- endfor %}
+</div>
+</body>
+</html>
