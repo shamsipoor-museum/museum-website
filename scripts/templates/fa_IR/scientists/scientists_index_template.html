@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fa-IR">
+<head>
+<title>{{title}}</title>
+<meta name="author" content="M. MAD">
+<link rel="icon" type="image/png" href="../../favicon.png">
+<link rel="stylesheet" href="../scientists_style.css">
+<link rel="stylesheet" href="../fonts.css">
+</head>
+<body dir="rtl" align="right">
+<h1 class="scientist-heading scientist-text-heading persian-heading">{{title}}</h1>
+<div style="max-width: 100%; overflow: auto;">
+<table>
+  <tr>
+    <td><b class="table-pseudo-heading">نام فایل</a></td>
+    <td><b class="table-pseudo-heading">عنوان</b></td>
+    <td><b class="table-pseudo-heading">نام</b></td>
+    <td><b class="table-pseudo-heading">زاده</b></td>
+    <td><b class="table-pseudo-heading">درگذشت</b></td>
+    <td><b class="table-pseudo-heading">ملیت</b></td>
+    <td><b class="table-pseudo-heading">محل تحصیل</b></td>
+    <td><b class="table-pseudo-heading">شناخته‌شده برای</b></td>
+    <td><b class="table-pseudo-heading">جایزه‌ها</b></td>
+    <td><b class="table-pseudo-heading">برچسب‌ها</b></td>
+  </tr>
+  {%-  for scientist in index %}
+  <tr>
+    <td><a href="{{scientist.link}}">{{scientist.filename}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.scientist_title}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.name}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.born}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.died}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.nationality}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.alma_mater}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.known_for}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.awards}}</a></td>
+    <td><a href="{{scientist.link}}">{{scientist.table.tags}}</a></td>
+  </tr>
+  {%- endfor %}
+</table>
+</div>
+</body>
+</html>
