@@ -66,9 +66,9 @@ def extract_part_data(src,
                     )
 
 
-def write_templated_part_data(part_data, template, path, mode="w"):
+def write_templated_part_data(pd, template, path, mode="w"):
     with open(path, mode=mode) as f:
-        f.write(template.render(part_data.__dict__))
+        f.write(template.render(pd.__dict__))
 
 
 def main(src_dir: Optional[str] = None):

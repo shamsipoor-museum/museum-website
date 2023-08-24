@@ -16,6 +16,7 @@
 import sys
 import os
 from os import path as osp
+import re
 from typing import Optional, Union, Type, Callable, Tuple
 
 from attrs import asdict, define, frozen, make_class, Factory
@@ -23,6 +24,8 @@ from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import qrcode as qr
 
+# ge = ("index.html", "qr_codes.html")
+GE = (r"index\.html", r"qr_codes_.+\.html")
 
 @define
 class SecSpec:
@@ -40,15 +43,15 @@ class SecSpec:
     _write_data_to_md: Optional[Callable] = None  # DEPRECATED
     _write_data_to_html: Optional[Callable] = None  # DEPRECATED
     index_template_path: Optional[str] = None
-    index_filename: Optional[str] = None
+    index_filename: str = "index.html"  # Are relative to output_path
     extract_index: Optional[Callable] = None
     write_index: Optional[Callable] = None
-    qr_dirname: Optional[str] = None
+    qr_dirname: str = "qr_codes"  # Are relative to output_path
     qr_template_path: Optional[str] = None
-    qr_pages_dirname: Optional[str] = None
+    qr_pages_dirname: str = "qr_codes/pages"  # Are relative to output_path
 
 
-def _generate_html(sec: SecSpec, exceptions: Optional[Tuple[str]] = None):  # DEPRECATED
+def _generate_html(sec: SecSpec, exceptions: Tuple[str] = GE):  # DEPRECATED
     if sec.input_path is not None:
         for dirpath, dirnames, filenames in os.walk(sec.input_path):
             for f in filenames:
@@ -66,39 +69,60 @@ def _generate_html(sec: SecSpec, exceptions: Optional[Tuple[str]] = None):  # DE
         _generate_html(s)
 
 
-def generate_content(sec: SecSpec, exceptions: Optional[Tuple[str]] = None):
+def compile_re_collection(collection):
+    # lazy approach with generator expression sucks and it will let
+    # exceptional files to be generated for some reason
+    # (search_re_collection does not seem to like it)
+    return [re.compile(e) for e in collection]
+
+
+def search_re_collection(collection, string):
+    for p in collection:
+        if p.search(string) is not None:
+            return True
+    return False
+
+
+def generate_content(sec: SecSpec, exceptions: Tuple[str] = GE):
     """Just chaining two calls, passing 'sec.extract_data()' to 'sec.write_data()'"""
     if sec.input_path is not None:
         sec.write_data(sec, sec.extract_data(sec, exceptions=exceptions))
 
 
-def generate_index(sec: SecSpec, exceptions: Optional[Tuple[str]] = None):
+def generate_index(sec: SecSpec, exceptions: Tuple[str] = GE):
     """Just chaining two calls, passing 'sec.extract_index()' to 'sec.write_index()'"""
     if sec.input_path is not None:
         sec.write_index(sec, sec.extract_index(sec, exceptions=exceptions))
 
 
-def generate_qr_imgs(sec: SecSpec, exceptions: tuple = ("index.html", ), dry_run: bool = False):
+def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = False):
+    exceptions = compile_re_collection(exceptions)
     for dirpath, dirnames, filenames in os.walk(sec.output_path):
         for f in filenames:
             if f.endswith(".html"):
-                if f in exceptions:
+                # if f in exceptions:
+                #     continue
+                if search_re_collection(exceptions, f):
                     continue
                 f = osp.splitext(f)[0]
                 if dry_run:
                     print(sec.url_prefix + f)
                 else:
                     qrcode = qr.make(sec.url_prefix + f)
+                    print("[!!!]", osp.join(osp.join(sec.output_path, sec.qr_dirname), f + ".png"))
                     qrcode.save(osp.join(osp.join(sec.output_path, sec.qr_dirname), f + ".png"))
 
 
 def extract_qr_table(sec: SecSpec, rows: int = 5, cols: int = 4,
-                     exceptions: tuple = ("index.png", )) -> tuple:
+                     exceptions: Tuple[str] = (r"index\.png", )) -> tuple:
+    exceptions = compile_re_collection(exceptions)
     pages = []
     for dirpath, dirnames, filenames in os.walk(osp.join(sec.output_path, sec.qr_dirname)):
         for f in filenames:
             if f.endswith(".png"):
-                if f in exceptions:
+                # if f in exceptions:
+                #     continue
+                if search_re_collection(exceptions, f):
                     continue
                 if len(pages) == 0 or (len(pages[-1]) >= rows and len(pages[-1][-1]) >= cols):
                     pages.append([])
@@ -118,8 +142,8 @@ def write_qr_table(data, template, path, mode="w", title="QR Codes"):
         f.write(template.render(title=title, table=data))
 
 
-def generate_qr_codes(sec: SecSpec, exceptions: Optional[Tuple[str]] = None, dry_run: bool = False,
-                      qr_pages: bool = True, qr_pages_exceptions: Optional[Tuple[str]] = None,
+def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = False,
+                      qr_pages: bool = True, qr_pages_exceptions: Tuple[str] = GE,
                       qr_pages_rows: int = 5, qr_pages_cols: int = 4,
                       qr_pages_filename_fmt: str = "qr_codes_{i}.html", qr_pages_title_fmt: str = "QR Codes {i}"):
     env = Environment(
@@ -137,10 +161,10 @@ def generate_qr_codes(sec: SecSpec, exceptions: Optional[Tuple[str]] = None, dry
                            title=qr_pages_title_fmt.format(i=i))
 
 
-def generate(sec: SecSpec, content_exceptions: Optional[Tuple[str]] = None,
-             index: bool = True, index_exceptions: Optional[Tuple[str]] = None,
-             qr: bool = True, qr_exceptions: Optional[Tuple[str]] = None,
-             qr_pages: bool = True, qr_pages_exceptions: Optional[Tuple[str]] = None,
+def generate(sec: SecSpec, content_exceptions: Tuple[str] = GE,
+             index: bool = True, index_exceptions: Tuple[str] = GE,
+             qr: bool = True, qr_exceptions: Tuple[str] = GE,
+             qr_pages: bool = True, qr_pages_exceptions: Tuple[str] = GE,
              qr_pages_rows: int = 5, qr_pages_cols: int = 4,
              qr_pages_filename_fmt: str = "qr_codes_{i}.html", qr_pages_title_fmt: str = "QR Codes {i}",
              args_pass_through: bool = True):
