@@ -16,9 +16,9 @@ body {
     font-display: swap;
 }
 
-.part-heading {
+.scientist-heading {
     text-align: center;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: BTitr;
     font-display: swap;
 }
 
@@ -27,12 +27,12 @@ body {
     font-display: swap;
 }
 
-.part-text-heading {
+.scientist-text-heading {
     min-height: 4vh;
     font-size: 3.5vmax;  /* a magic number for heading */
 }
 
-.part-pic {
+.scientist-pic {
     border-radius: 30px;
     /* min-height: 36vh; */  /* experimental code added here to comply with
                                 the original master PDF (choke_987) but it
@@ -90,6 +90,6 @@ tr:nth-child(even) {
 
 .fa-IR-explanation-header{
     font-family: BTitr;
-    font-size: 2.1vmax;  /* just a magic number bigger than normal explanation text and smaller than part-text-heading */
+    font-size: 2.1vmax;  /* just a magic number bigger than normal explanation text and smaller than scientist-text-heading */
     font-display: swap;
 }
