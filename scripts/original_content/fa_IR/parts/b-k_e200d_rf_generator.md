@@ -3,10 +3,10 @@ title: B-K E200D RF Generator
 header: B-K E200D RF Generator
 author: M. MAD
 pic: pics/b-k_e200d_rf_generator.png
-name: RF ژنراتور
+name: <span class="english-text">RF</span> ژنراتور
 manufacturing_date: 1970
 category: تجهیزات الکترونیکی
-manufacturer_name: B-K
+manufacturer_name: <span class="english-text">B-K</span>
 manufacturer_country: آمریکا
 ---
 

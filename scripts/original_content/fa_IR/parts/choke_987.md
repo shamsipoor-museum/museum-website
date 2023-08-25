@@ -3,10 +3,10 @@ title: چُک 987
 header: چُک 987
 author: M. MAD
 pic: pics/choke_987.png
-name: چُک RF
+name: چُک <span class="english-text">RF</span>
 manufacturing_date: 1951
 category: قطعات الکترونیکی و صنعتی
-manufacturer_name: Miller (Miller Quality Product)
+manufacturer_name: <span class="english-text">Miller (Miller Quality Product)</span>
 manufacturer_country: آمریکا
 ---
 

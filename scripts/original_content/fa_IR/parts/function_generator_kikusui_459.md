@@ -3,10 +3,10 @@ title: Function Generator Kikusui 459
 header: Function Generator Kikusui 459
 author: M. MAD
 pic: pics/function_generator_kikusui_459.png
-name: سیگنال ژنراتور Kikusui 459
+name: سیگنال ژنراتور <span class="english-text">Kikusui 459</span>
 manufacturing_date: 1970
 category: تجهیزات الکترونیکی
-manufacturer_name: Kikusui
+manufacturer_name: <span class="english-text">Kikusui</span>
 manufacturer_country: ژاپن
 ---
 

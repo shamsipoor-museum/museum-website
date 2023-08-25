@@ -6,7 +6,7 @@ pic: pics/tektronix_7623a.png
 name: اسیلوسکوپ حافظه‌دار
 manufacturing_date: 1970
 category: تجهیزات الکترونیکی
-manufacturer_name: Tektronix
+manufacturer_name: <span class="english-text">Tektronix</span>
 manufacturer_country: آمریکا
 ---
 

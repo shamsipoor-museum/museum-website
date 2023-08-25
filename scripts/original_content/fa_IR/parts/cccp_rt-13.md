@@ -6,7 +6,7 @@ pic: pics/cccp_rt-13.png
 name: لامپ خلأ تمام‌موج
 manufacturing_date: 1943
 category: لامپ‌های خلأ
-manufacturer_name: CCCP-شوروی
+manufacturer_name: <span class="english-text">CCCP</span>-شوروی
 manufacturer_country: روسیه
 ---
 

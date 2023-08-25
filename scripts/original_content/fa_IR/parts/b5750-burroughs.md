@@ -6,7 +6,7 @@ pic: pics/b5750-burroughs.png
 name: لوله نشانگر NIXIE
 manufacturing_date: 1960
 category: قطعات الکترونیکی و شمارشگر
-manufacturer_name: Burrough
+manufacturer_name: <span class="english-text">Burrough</span>
 manufacturer_country: آمریکا
 ---
 

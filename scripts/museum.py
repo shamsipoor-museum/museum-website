@@ -17,11 +17,12 @@ import sys
 import os
 from os import path as osp
 from datetime import date
-from typing import Optional, Union, Type, Callable, Tuple
+from typing import Optional, Union, Type, Callable, Tuple, Dict
 
 from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
+import frontmatter as fm
 
 import blogger
 
@@ -37,7 +38,8 @@ FA_IR_SCIENTISTS_PREFIX = FA_IR_PREFIX + "scientists/"
 #  ___) | (__| |  __/ | | | |_| \__ \ |_\__ \
 # |____/ \___|_|\___|_| |_|\__|_|___/\__|___/
 
-
+# (slots=False) is there because we have to have access to __dict__, and
+# __dict__ won't be available when using slots
 @frozen
 class ScientistTable:
     name: Optional[str] = None
@@ -54,14 +56,14 @@ class ScientistTable:
     tags: Optional[tuple] = None
 
 
-@frozen
+@frozen(slots=False)
 class ScientistData:
     title: Optional[str] = None
     header: Optional[str] = None
     pic: Optional[str] = None
     table: Optional[ScientistTable] = None
-    bio_summary: Optional[Union[str, tuple]] = None
-    bio: Optional[Union[str, tuple]] = None
+    bio_summary: Optional[Union[str, Tuple[str]]] = None
+    bio: Optional[Union[str, Tuple[str]]] = None
 
 
 @frozen
@@ -89,13 +91,13 @@ class PartTable:
     manufacturer_country: str = ""
 
 
-@frozen
+@frozen(slots=False)
 class PartData:
     title: Optional[str] = None
     header: Optional[str] = None
     pic: Optional[str] = None
     table: Optional[PartTable] = None
-    explanation_paragraphs: Optional[Union[str, tuple]] = None
+    explanation_paragraphs: Optional[Union[str, Tuple[str]]] = None
 
 
 @frozen
@@ -163,6 +165,60 @@ def fa_ir_scientists_write_index(sec: blogger.SecSpec, index: tuple, title="فه
         f.write(template.render(title=title, index=index))
 
 
+#  ____            _         ____        _
+# |  _ \ __ _ _ __| |_ ___  |  _ \  __ _| |_ __ _
+# | |_) / _` | '__| __/ __| | | | |/ _` | __/ _` |
+# |  __/ (_| | |  | |_\__ \ | |_| | (_| | || (_| |
+# |_|   \__,_|_|   \__|___/ |____/ \__,_|\__\__,_|
+
+
+def fa_ir_parts_extract_table_from_md(loaded_file: fm.Post) -> PartTable:
+    return PartTable(
+        name=loaded_file["name"],
+        manufacturing_date=loaded_file["manufacturing_date"],
+        category=loaded_file["category"],
+        manufacturer_name=loaded_file["manufacturer_name"],
+        manufacturer_country=loaded_file["manufacturer_country"]
+    )
+
+
+def fa_ir_parts_extract_data_from_md(dirpath, f):
+    fl = fm.load(osp.join(dirpath, f))
+    print("[debug]", fl.__dict__)
+    return PartData(
+        title=fl["title"],
+        header=fl["header"],
+        pic=fl["pic"],
+        table=fa_ir_parts_extract_table_from_md(fl),
+        explanation_paragraphs=fl.content
+    )
+
+
+def fa_ir_parts_extract_data(sec: blogger.SecSpec, exceptions: Tuple[str] = blogger.GE) -> Dict[str, PartData]:
+    exceptions = blogger.compile_re_collection(exceptions)
+    pd_dict = dict()
+    for dirpath, dirnames, filenames in os.walk(sec.input_path):
+        for f in filenames:
+            if f.endswith(".md"):
+                if blogger.search_re_collection(exceptions, f):
+                    continue
+                pd_dict[f] = fa_ir_parts_extract_data_from_md(dirpath, f)
+    return pd_dict
+
+
+def fa_ir_parts_write_data(sec: blogger.SecSpec, pd_dict: Dict[str, PartData]):
+    env = Environment(
+        loader=FileSystemLoader(osp.dirname(sec.template_path)),
+        autoescape=False  # select_autoescape()
+    )
+    template = env.get_template(osp.basename(sec.template_path))
+    for filename in pd_dict:
+        # print(osp.join(sec.output_path, filename.replace(".md", ".html")),
+        #       pd_dict[filename], sep="\n---\n", end="\n----------\n")
+        with open(osp.join(sec.output_path, filename.replace(".md", ".html")), mode="w") as f:
+            f.write(template.render(pd_dict[filename].__dict__))
+
+
 #  ____            _         ___           _
 # |  _ \ __ _ _ __| |_ ___  |_ _|_ __   __| | _____  __
 # | |_) / _` | '__| __/ __|  | || '_ \ / _` |/ _ \ \/ /
@@ -179,6 +235,19 @@ def fa_ir_parts_extract_table_from_soup(soup: BeautifulSoup) -> PartTable:
         category=rows[1][1],
         manufacturer_name=rows[1][3],
         manufacturer_country=rows[2][1]
+    )
+
+
+def fa_ir_parts_extract_table_from_soup_no_escape(soup: BeautifulSoup) -> PartTable:
+    rows = [str(row).strip("\n").replace("\n", ":").split(":")
+            for row in soup.find_all("tr")]
+    print(rows)
+    return PartTable(
+        name=rows[0][2][9:-5],  # removing "</b><br/>" from start and "</td>" from end
+        manufacturing_date=rows[0][4][9:-5],
+        category=rows[1][2][9:-5],
+        manufacturer_name=rows[1][4][9:-5],
+        manufacturer_country=rows[2][2][9:-5]
     )
 
 
@@ -225,8 +294,8 @@ fa_ir_parts = blogger.SecSpec(
     input_path="scripts/original_content/fa_IR/parts",
     data_spec=PartData,
     template_path="scripts/templates/fa_IR/parts/parts_template.html",
-    extract_data=None,
-    write_data=None,
+    extract_data=fa_ir_parts_extract_data,
+    write_data=fa_ir_parts_write_data,
     index_template_path="scripts/templates/fa_IR/parts/parts_index_template.html",
     extract_index=fa_ir_parts_extract_index,
     write_index=fa_ir_parts_write_index,
@@ -251,8 +320,12 @@ document_root.sub_specs = [fa_ir_root]
 
 
 def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
-    blogger.generate_index(fa_ir_parts, exceptions=blogger.GE)
-    blogger.generate_qr_codes(fa_ir_parts, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
+    # blogger.generate_index(fa_ir_parts, exceptions=blogger.GE)
+    # blogger.generate_qr_codes(fa_ir_parts, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
+    blogger.generate(fa_ir_parts, content_exceptions=(
+        r"index\.html", r"qr_codes_.+\.html", r"choke_987\.md",
+        r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md", r"miller_big_rf_trans\.md"
+    ))
 
     blogger.generate_index(fa_ir_scientists, exceptions=blogger.GE)
     blogger.generate_qr_codes(fa_ir_scientists, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)

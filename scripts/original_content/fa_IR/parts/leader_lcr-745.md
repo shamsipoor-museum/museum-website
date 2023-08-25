@@ -3,10 +3,10 @@ title: Leader lcr-745
 header: Leader lcr-745
 author: M. MAD
 pic: pics/leader_lcr-745.png
-name: LCR متر
+name: <span class="english-text">LCR</span> متر
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Leader
+manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
 

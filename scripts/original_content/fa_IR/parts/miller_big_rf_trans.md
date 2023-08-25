@@ -3,10 +3,10 @@ title: (R.F.)73-oscترانس F.I بزرگ
 header: ترانس (R.F.) بزرگ 73-OSC
 author: M. MAD
 pic: pics/miller_big_rf_trans.png
-name: RF مینیاتوری
+name: <span class="english-text">RF</span> مینیاتوری
 manufacturing_date: 1951
 category: قطعات الکترونیکی و صنعتی
-manufacturer_name: Miller (Miller Quality Product)
+manufacturer_name: <span class="english-text">Miller (Miller Quality Product)</span>
 manufacturer_country: آمریکا
 ---
 

@@ -6,7 +6,7 @@ pic: pics/leader_ldm-171_distortion_meter.png
 name: Distortion Meter
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Leader
+manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
 

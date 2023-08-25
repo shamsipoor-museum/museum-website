@@ -6,7 +6,7 @@ pic: pics/2d21_similar.png
 name: لامپ خلأ تمام‌موج تیراترون
 manufacturing_date: 1948
 category: لامپ‌های خلأ
-manufacturer_name: RCA
+manufacturer_name: <span class="english-text">RCA</span>
 manufacturer_country: آمریکا
 ---
 

@@ -6,7 +6,7 @@ pic: pics/pulse_generator_pm5705.png
 name: پالس ژنراتور
 manufacturing_date: 1976
 category: تجهیزات الکترونیکی
-manufacturer_name: Philips
+manufacturer_name: <span class="english-text">Philips</span>
 manufacturer_country: هلند
 ---
 

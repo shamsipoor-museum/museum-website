@@ -6,7 +6,7 @@ pic: pics/iwatsu-fg330.png
 name: فانکشن ژنراتور
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Iwatsu
+manufacturer_name: <span class="english-text">Iwatsu</span>
 manufacturer_country: ژاپن
 ---
 

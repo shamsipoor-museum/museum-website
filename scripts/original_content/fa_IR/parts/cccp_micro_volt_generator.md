@@ -6,7 +6,7 @@ pic: pics/cccp_micro_volt_generator.png
 name: میکروولت ساز
 manufacturing_date: 1943
 category: ژنراتور
-manufacturer_name: CCCP-شوروی
+manufacturer_name: <span class="english-text">CCCP</span>-شوروی
 manufacturer_country: روسیه
 ---
 

@@ -6,7 +6,7 @@ pic: pics/leader_lfg1300s.png
 name: سیگنال ژنراتور
 manufacturing_date: 1970
 category: تجهیزات الکترونیکی
-manufacturer_name: Leader
+manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
 

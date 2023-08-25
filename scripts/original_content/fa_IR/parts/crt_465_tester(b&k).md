@@ -6,7 +6,7 @@ pic: pics/crt_465_tester(b&k).png
 name: تستر لامپ اشعه کاتدی
 manufacturing_date: 1960
 category: تستر قطعات
-manufacturer_name: B&K
+manufacturer_name: <span class="english-text">B&amp;K</span>
 manufacturer_country: آمریکا
 ---
 

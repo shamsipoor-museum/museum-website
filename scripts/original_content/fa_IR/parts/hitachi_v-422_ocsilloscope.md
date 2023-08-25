@@ -3,10 +3,10 @@ title: Hitachi v-422 ocsilloscope
 header: Hitachi v-422 ocsilloscope
 author: M. MAD
 pic: pics/hitachi_v-422_ocsilloscope.png
-name: اسیلوسکوپ Hitachi V-422
+name: اسیلوسکوپ <span class="english-text">Hitachi V-422</span>
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Hitachi
+manufacturer_name: <span class="english-text">Hitachi</span>
 manufacturer_country: ژاپن
 ---
 

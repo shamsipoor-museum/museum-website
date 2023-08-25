@@ -6,7 +6,7 @@ pic: pics/aritsu_spectrum_analyzer.png
 name: اسپکتروم آنالایزر
 manufacturing_date: 1991
 category: تجهیزات الکترونیکی
-manufacturer_name: Aritsu
+manufacturer_name: <span class="english-text">Aritsu</span>
 manufacturer_country: ژاپن
 ---
 

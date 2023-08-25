@@ -3,10 +3,10 @@ title: LSW-250
 header: LSW-250
 author: M. MAD
 pic: pics/leader_lsw-250.png
-name: SWEMAR ژنراتور
+name: <span class="english-text">SWEMAR</span> ژنراتور
 manufacturing_date: 6197
 category: تجهیزات الکترونیکی
-manufacturer_name: Leader
+manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
 

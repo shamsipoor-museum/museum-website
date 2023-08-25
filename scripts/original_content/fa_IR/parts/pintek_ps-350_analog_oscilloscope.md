@@ -3,10 +3,10 @@ title: Pintek PS-350 Analog Oscilloscope
 header: Pintek PS-350 Analog Oscilloscope
 author: M. MAD
 pic: pics/pintek_ps-350_analog_oscilloscope.png
-name: اسیلوسکوپ Pintek PS-350
+name: اسیلوسکوپ <span class="english-text">Pintek PS-350</span>
 manufacturing_date: 1990
 category: تجهیزات الکترونیکی
-manufacturer_name: Pintek
+manufacturer_name: <span class="english-text">Pintek</span>
 manufacturer_country: چین
 ---
 

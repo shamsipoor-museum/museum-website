@@ -6,7 +6,7 @@ pic: pics/stancor_filter_choke_c-2727.png
 name: چوک فیلتر جریان بالا
 manufacturing_date: 1954
 category: قطعات الکترونیکیو صنعتی
-manufacturer_name: Stancor
+manufacturer_name: <span class="english-text">Stancor</span>
 manufacturer_country: آمریکا
 ---
 

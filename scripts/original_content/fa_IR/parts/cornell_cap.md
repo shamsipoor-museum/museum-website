@@ -3,10 +3,10 @@ title: Cornell cap
 header: Cornell cap
 author: M. MAD
 pic: pics/cornell_cap.png
-name: جعبه خازن Cornell
+name: جعبه خازن <span class="english-text">Cornell</span>
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Cornell
+manufacturer_name: <span class="english-text">Cornell</span>
 manufacturer_country: آمریکا
 ---
 

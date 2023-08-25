@@ -3,10 +3,10 @@ title: Hitachi VF-4301 frequency counter
 header: Hitachi VF-4301 frequency counter
 author: M. MAD
 pic: pics/hitachi_vf-4301_frequency_counter.png
-name: فرکانس متر VF-4301
+name: فرکانس متر <span class="english-text">VF-4301</span>
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Hitachi
+manufacturer_name: <span class="english-text">Hitachi</span>
 manufacturer_country: ژاپن
 ---
 

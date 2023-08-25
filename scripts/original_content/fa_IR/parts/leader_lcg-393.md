@@ -6,7 +6,7 @@ pic: pics/leader_lcg-393.png
 name: پترن ژنراتور
 manufacturing_date: 1980
 category: تجهیزات الکترونیکی
-manufacturer_name: Leader
+manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
 

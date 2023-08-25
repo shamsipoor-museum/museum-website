@@ -42,7 +42,7 @@ def fa_ir_parts_extract_data_from_html(dirpath: str, f: str, markdownify: bool =
         title=soup.title.text,
         header=soup.h1.text,
         pic=soup.img["src"],
-        table=m.fa_ir_parts_extract_table_from_soup(soup),
+        table=m.fa_ir_parts_extract_table_from_soup_no_escape(soup),
         explanation_paragraphs=str(
             soup.body.find("div", {"class": "fa-IR-explanation"})
         ).lstrip('<div class="fa-IR-explanation">').rstrip('</div>')
@@ -59,7 +59,7 @@ def html_to_md(sec: b.SecSpec, extract_data: Callable, write_data: Callable,
                dry_run: bool = True):
     env = Environment(
         loader=FileSystemLoader(osp.dirname(template_path)),
-        autoescape=select_autoescape()
+        autoescape=False  # select_autoescape()
     )
     template = env.get_template(osp.basename(template_path))
 
@@ -87,7 +87,7 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,
     template_path = template_path if template_path is not None else sys.argv[2]
     env = Environment(
         loader=FileSystemLoader(osp.dirname(template_path)),
-        autoescape=select_autoescape()
+        autoescape=False  # select_autoescape()
     )
     template = env.get_template("parts_template.md")
 

@@ -6,7 +6,7 @@ pic: pics/6x5gt-rca.png
 name: لامپ خلأ تمام‌موج
 manufacturing_date: 1960
 category: لامپ‌های خلأ
-manufacturer_name: RCA
+manufacturer_name: <span class="english-text">RCA</span>
 manufacturer_country: آمریکا
 ---
 

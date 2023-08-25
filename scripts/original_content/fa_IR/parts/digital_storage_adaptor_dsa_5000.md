@@ -6,7 +6,7 @@ pic: pics/digital_storage_adaptor_dsa_5000.png
 name: مبدل ذخیره‌سازی دیجیتال
 manufacturing_date: 1990
 category: تجهیزات الکترونیکی
-manufacturer_name: Kikusui
+manufacturer_name: <span class="english-text">Kikusui</span>
 manufacturer_country: ژاپن
 ---
 

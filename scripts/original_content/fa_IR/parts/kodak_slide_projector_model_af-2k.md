@@ -6,7 +6,7 @@ pic: pics/kodak_slide_projector_model_af-2k.png
 name: پروژکتور اسلایدی
 manufacturing_date: 1968
 category: پروژکتور
-manufacturer_name: Kodak
+manufacturer_name: <span class="english-text">Kodak</span>
 manufacturer_country: آمریکا
 ---
 

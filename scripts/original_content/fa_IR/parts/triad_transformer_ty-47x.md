@@ -6,7 +6,7 @@ pic: pics/triad_transformer_ty-47x.png
 name: ترانسفورماتور صوتی
 manufacturing_date: 1960
 category: قطعات الکترونیکی و صنعتی
-manufacturer_name: Triad
+manufacturer_name: <span class="english-text">Triad</span>
 manufacturer_country: آمریکا
 ---
 

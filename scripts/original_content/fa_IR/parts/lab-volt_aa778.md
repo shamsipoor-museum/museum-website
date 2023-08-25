@@ -6,7 +6,7 @@ pic: pics/lab-volt_aa778.png
 name: ژنراتور A.F.
 manufacturing_date: 1960
 category: تجهیزات الکترونیکی
-manufacturer_name: Lab-Volt
+manufacturer_name: <span class="english-text">Lab-Volt</span>
 manufacturer_country: آمریکا
 ---
 

@@ -6,7 +6,7 @@ pic: pics/leader_ltc-905_curve_tracer_sm.png
 name: ردیاب منحنی با اسکپ
 manufacturing_date: 1953
 category: ردیاب منحنی
-manufacturer_name: Leader
+manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
 

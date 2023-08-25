@@ -100,8 +100,6 @@ def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = 
     for dirpath, dirnames, filenames in os.walk(sec.output_path):
         for f in filenames:
             if f.endswith(".html"):
-                # if f in exceptions:
-                #     continue
                 if search_re_collection(exceptions, f):
                     continue
                 f = osp.splitext(f)[0]
@@ -109,7 +107,7 @@ def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = 
                     print(sec.url_prefix + f)
                 else:
                     qrcode = qr.make(sec.url_prefix + f)
-                    print("[!!!]", osp.join(osp.join(sec.output_path, sec.qr_dirname), f + ".png"))
+                    # print("[!!!]", osp.join(osp.join(sec.output_path, sec.qr_dirname), f + ".png"))
                     qrcode.save(osp.join(osp.join(sec.output_path, sec.qr_dirname), f + ".png"))
 
 
@@ -120,8 +118,6 @@ def extract_qr_table(sec: SecSpec, rows: int = 5, cols: int = 4,
     for dirpath, dirnames, filenames in os.walk(osp.join(sec.output_path, sec.qr_dirname)):
         for f in filenames:
             if f.endswith(".png"):
-                # if f in exceptions:
-                #     continue
                 if search_re_collection(exceptions, f):
                     continue
                 if len(pages) == 0 or (len(pages[-1]) >= rows and len(pages[-1][-1]) >= cols):
@@ -142,10 +138,11 @@ def write_qr_table(data, template, path, mode="w", title="QR Codes"):
         f.write(template.render(title=title, table=data))
 
 
-def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = False,
+def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE,
                       qr_pages: bool = True, qr_pages_exceptions: Tuple[str] = GE,
                       qr_pages_rows: int = 5, qr_pages_cols: int = 4,
-                      qr_pages_filename_fmt: str = "qr_codes_{i}.html", qr_pages_title_fmt: str = "QR Codes {i}"):
+                      qr_pages_filename_fmt: str = "qr_codes_{i}.html",
+                      qr_pages_title_fmt: str = "QR Codes {i}", dry_run: bool = False):
     env = Environment(
         loader=FileSystemLoader(osp.dirname(sec.qr_template_path)),
         autoescape=select_autoescape()
@@ -176,18 +173,19 @@ def generate(sec: SecSpec, content_exceptions: Tuple[str] = GE,
             generate_qr_codes(sec, qr_exceptions, qr_pages, qr_pages_exceptions,
                               qr_pages_rows, qr_pages_cols,
                               qr_pages_filename_fmt, qr_pages_title_fmt)
-    for s in sec.sub_specs:
-        if args_pass_through:
-            generate(s, content_exceptions=content_exceptions,
-                     index=index, index_exceptions=index_exceptions,
-                     qr=qr, qr_exceptions=qr_exceptions,
-                     qr_pages=qr_pages, qr_pages_exceptions=qr_pages_exceptions,
-                     qr_pages_rows=qr_pages_rows, qr_pages_cols=qr_pages_cols,
-                     qr_pages_filename_fmt=qr_pages_filename_fmt,
-                     qr_pages_title_fmt=qr_pages_title_fmt,
-                     args_pass_through=args_pass_through)
-        else:
-            generate(s)
+    if sec.sub_specs is not None:
+        for s in sec.sub_specs:
+            if args_pass_through:
+                generate(s, content_exceptions=content_exceptions,
+                         index=index, index_exceptions=index_exceptions,
+                         qr=qr, qr_exceptions=qr_exceptions,
+                         qr_pages=qr_pages, qr_pages_exceptions=qr_pages_exceptions,
+                         qr_pages_rows=qr_pages_rows, qr_pages_cols=qr_pages_cols,
+                         qr_pages_filename_fmt=qr_pages_filename_fmt,
+                         qr_pages_title_fmt=qr_pages_title_fmt,
+                         args_pass_through=args_pass_through)
+            else:
+                generate(s)
 
 
 def read_file(path: str):
