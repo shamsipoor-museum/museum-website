@@ -12,7 +12,7 @@ known_for: {{table.known_for}}
 awards: {{table.awards}}
 tags: {{table.tags}}
 ---
-{%-  for paragraph in explanation_paragraphs %}
+{%-  for paragraph in bio %}
 {{paragraph}}
 
 {%- endfor %}

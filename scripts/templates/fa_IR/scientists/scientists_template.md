@@ -12,4 +12,4 @@ known_for: {{table.known_for}}
 awards: {{table.awards}}
 tags: {{table.tags}}
 ---
-{{explanation_paragraphs}}
+{{bio}}

@@ -28,7 +28,41 @@ import blogger as b
 import museum as m
 
 
-def fa_ir_parts_extract_data_from_html(dirpath: str, f: str, markdownify: bool = False):
+#  ____       _            _   _     _
+# / ___|  ___(_) ___ _ __ | |_(_)___| |_ ___
+# \___ \ / __| |/ _ \ '_ \| __| / __| __/ __|
+#  ___) | (__| |  __/ | | | |_| \__ \ |_\__ \
+# |____/ \___|_|\___|_| |_|\__|_|___/\__|___/
+
+
+def fa_ir_scientists_extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> m.ScientistData:
+    path = osp.join(dirpath, f)
+    f_text = b.read_file(path)
+    soup = BeautifulSoup(f_text, "html.parser")
+    return m.ScientistData(
+        title=soup.title.text,
+        header=soup.h1.text,  # TODO
+        pic=soup.img["src"],
+        table=m.fa_ir_scientists_extract_table_from_soup_no_escape(soup),
+        bio=str(
+            soup.body.find("div", {"class": "fa-IR-explanation"})
+        ).lstrip('<div class="fa-IR-explanation">').rstrip('</div>')
+    )
+
+
+def fa_ir_scientists_write_data_to_md(pd: m.ScientistData, template: Template, path: str, mode: str = "w"):
+    with open(path, mode) as f:
+        f.write(template.render(pd.__dict__))
+
+
+#  ____            _
+# |  _ \ __ _ _ __| |_ ___
+# | |_) / _` | '__| __/ __|
+# |  __/ (_| | |  | |_\__ \
+# |_|   \__,_|_|   \__|___/
+
+
+def fa_ir_parts_extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> m.PartData:
     path = osp.join(dirpath, f)
     f_text = b.read_file(path)
     soup = BeautifulSoup(f_text, "html.parser")
@@ -40,7 +74,7 @@ def fa_ir_parts_extract_data_from_html(dirpath: str, f: str, markdownify: bool =
     #         ep.append(md(str(p)) if markdownify else p.text)
     return m.PartData(
         title=soup.title.text,
-        header=soup.h1.text,
+        header=soup.h1.text,  # TODO
         pic=soup.img["src"],
         table=m.fa_ir_parts_extract_table_from_soup_no_escape(soup),
         explanation_paragraphs=str(
@@ -98,4 +132,7 @@ if __name__ == "__main__":
     # html_to_md(m.fa_ir_parts, extract_data=fa_ir_parts_extract_data_from_html,
     #            write_data=fa_ir_parts_write_data_to_md,
     #            template_path="scripts/templates/fa_IR/parts/parts_template.md", dry_run=False)
+    html_to_md(m.fa_ir_scientists, extract_data=fa_ir_scientists_extract_data_from_html,
+               write_data=fa_ir_scientists_write_data_to_md,
+               template_path="scripts/templates/fa_IR/scientists/scientists_template.md", dry_run=False)
     pass

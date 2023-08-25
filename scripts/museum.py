@@ -109,6 +109,63 @@ class PartsIndexRow:
     table: Optional[PartTable] = None
 
 
+#  ____       _            _   _     _         ____        _
+# / ___|  ___(_) ___ _ __ | |_(_)___| |_ ___  |  _ \  __ _| |_ __ _
+# \___ \ / __| |/ _ \ '_ \| __| / __| __/ __| | | | |/ _` | __/ _` |
+#  ___) | (__| |  __/ | | | |_| \__ \ |_\__ \ | |_| | (_| | || (_| |
+# |____/ \___|_|\___|_| |_|\__|_|___/\__|___/ |____/ \__,_|\__\__,_|
+
+
+def fa_ir_scientists_extract_table_from_md(loaded_file: fm.Post) -> ScientistTable:
+    return ScientistTable(
+        name=loaded_file["name"],
+        born=loaded_file["born"],
+        died=loaded_file["died"],
+        nationality=loaded_file["nationality"],
+        alma_mater=loaded_file["alma_mater"],
+        known_for=loaded_file["known_for"],
+        awards=loaded_file["awards"],
+        tags=loaded_file["tags"]
+    )
+
+
+def fa_ir_scientists_extract_data_from_md(dirpath, f) -> ScientistData:
+    fl = fm.load(osp.join(dirpath, f))
+    # print("[debug]", fl.__dict__)
+    return ScientistData(
+        title=fl["title"],
+        header=fl["header"],
+        pic=fl["pic"],
+        table=fa_ir_scientists_extract_table_from_md(fl),
+        bio=fl.content
+    )
+
+
+def fa_ir_scientists_extract_data(sec: blogger.SecSpec, exceptions: Tuple[str] = blogger.GE) -> Dict[str, ScientistData]:
+    exceptions = blogger.compile_re_collection(exceptions)
+    sd_dict = dict()
+    for dirpath, dirnames, filenames in os.walk(sec.input_path):
+        for f in filenames:
+            if f.endswith(".md"):
+                if blogger.search_re_collection(exceptions, f):
+                    continue
+                sd_dict[f] = fa_ir_scientists_extract_data_from_md(dirpath, f)
+    return sd_dict
+
+
+def fa_ir_scientists_write_data(sec: blogger.SecSpec, sd_dict: Dict[str, ScientistData]):
+    env = Environment(
+        loader=FileSystemLoader(osp.dirname(sec.template_path)),
+        autoescape=False  # select_autoescape()
+    )
+    template = env.get_template(osp.basename(sec.template_path))
+    for filename in sd_dict:
+        # print(osp.join(sec.output_path, filename.replace(".md", ".html")),
+        #       pd_dict[filename], sep="\n---\n", end="\n----------\n")
+        with open(osp.join(sec.output_path, filename.replace(".md", ".html")), mode="w") as f:
+            f.write(template.render(sd_dict[filename].__dict__))
+
+
 #  ____       _            _   _     _         ___           _
 # / ___|  ___(_) ___ _ __ | |_(_)___| |_ ___  |_ _|_ __   __| | _____  __
 # \___ \ / __| |/ _ \ '_ \| __| / __| __/ __|  | || '_ \ / _` |/ _ \ \/ /
@@ -131,7 +188,22 @@ def fa_ir_scientists_extract_table_from_soup(soup: BeautifulSoup) -> ScientistTa
     )
 
 
-def fa_ir_scientists_extract_index_row(dirpath: str, f: str):
+def fa_ir_scientists_extract_table_from_soup_no_escape(soup: BeautifulSoup) -> ScientistTable:
+    rows = [str(row).strip("\n").replace("\n", ":").split(":")
+            for row in soup.find_all("tr")]
+    return ScientistTable(
+        name=rows[0][2][9:-5],  # removing "</b><br/>" from start and "</td>" from end
+        born=rows[0][4][9:-5],
+        died=rows[1][2][9:-5],
+        nationality=rows[1][4][9:-5],
+        alma_mater=rows[2][2][9:-5],
+        known_for=rows[2][4][9:-5],
+        awards=rows[3][2][9:-5],
+        tags=rows[3][4][9:-5]
+    )
+
+
+def fa_ir_scientists_extract_index_row(dirpath: str, f: str) -> ScientistsIndexRow:
     path = osp.join(dirpath, f)
     f_text = blogger.read_file(path)
     soup = BeautifulSoup(f_text, "html.parser")
@@ -182,9 +254,9 @@ def fa_ir_parts_extract_table_from_md(loaded_file: fm.Post) -> PartTable:
     )
 
 
-def fa_ir_parts_extract_data_from_md(dirpath, f):
+def fa_ir_parts_extract_data_from_md(dirpath, f) -> PartData:
     fl = fm.load(osp.join(dirpath, f))
-    print("[debug]", fl.__dict__)
+    # print("[debug]", fl.__dict__)
     return PartData(
         title=fl["title"],
         header=fl["header"],
@@ -241,7 +313,7 @@ def fa_ir_parts_extract_table_from_soup(soup: BeautifulSoup) -> PartTable:
 def fa_ir_parts_extract_table_from_soup_no_escape(soup: BeautifulSoup) -> PartTable:
     rows = [str(row).strip("\n").replace("\n", ":").split(":")
             for row in soup.find_all("tr")]
-    print(rows)
+    # print(rows)
     return PartTable(
         name=rows[0][2][9:-5],  # removing "</b><br/>" from start and "</td>" from end
         manufacturing_date=rows[0][4][9:-5],
@@ -251,7 +323,7 @@ def fa_ir_parts_extract_table_from_soup_no_escape(soup: BeautifulSoup) -> PartTa
     )
 
 
-def fa_ir_parts_extract_index_row(dirpath: str, f: str):
+def fa_ir_parts_extract_index_row(dirpath: str, f: str) -> PartsIndexRow:
     path = osp.join(dirpath, f)
     f_text = blogger.read_file(path)
     soup = BeautifulSoup(f_text, "html.parser")
@@ -308,12 +380,12 @@ fa_ir_scientists = blogger.SecSpec(
     input_path="scripts/original_content/fa_IR/scientists",
     data_spec=ScientistData,
     template_path="scripts/templates/fa_IR/scientists/scientists_template.html",
-    extract_data=None,
-    write_data=None,
+    extract_data=fa_ir_scientists_extract_data,
+    write_data=fa_ir_scientists_write_data,
     index_template_path="scripts/templates/fa_IR/scientists/scientists_index_template.html",
     extract_index=fa_ir_scientists_extract_index,
     write_index=fa_ir_scientists_write_index,
-    qr_template_path="scripts/templates/fa_IR/parts/qr_pages_template.html",
+    qr_template_path="scripts/templates/fa_IR/scientists/qr_pages_template.html",
 )
 fa_ir_root.sub_specs = [fa_ir_parts, fa_ir_scientists]
 document_root.sub_specs = [fa_ir_root]
@@ -327,8 +399,9 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
         r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md", r"miller_big_rf_trans\.md"
     ))
 
-    blogger.generate_index(fa_ir_scientists, exceptions=blogger.GE)
-    blogger.generate_qr_codes(fa_ir_scientists, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
+    # blogger.generate_index(fa_ir_scientists, exceptions=blogger.GE)
+    # blogger.generate_qr_codes(fa_ir_scientists, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
+    blogger.generate(fa_ir_scientists)
 
 
 if __name__ == "__main__":
