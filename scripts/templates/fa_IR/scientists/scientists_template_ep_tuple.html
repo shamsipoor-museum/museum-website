@@ -31,7 +31,10 @@
   </tr>
 </table>
 <div class="fa-IR-explanation">
-{{explanation_paragraphs}}
+<h2 class="fa-IR-explanation-header">توضیحات</h2>
+{%-  for paragraph in explanation_paragraphs %}
+<p>{{paragraph}}</p>
+{%- endfor %}
 </div>
 </body>
 </html>
