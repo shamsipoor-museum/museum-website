@@ -132,7 +132,7 @@ if __name__ == "__main__":
     # html_to_md(m.fa_ir_parts, extract_data=fa_ir_parts_extract_data_from_html,
     #            write_data=fa_ir_parts_write_data_to_md,
     #            template_path="scripts/templates/fa_IR/parts/parts_template.md", dry_run=False)
-    html_to_md(m.fa_ir_scientists, extract_data=fa_ir_scientists_extract_data_from_html,
-               write_data=fa_ir_scientists_write_data_to_md,
-               template_path="scripts/templates/fa_IR/scientists/scientists_template.md", dry_run=False)
+    # html_to_md(m.fa_ir_scientists, extract_data=fa_ir_scientists_extract_data_from_html,
+    #            write_data=fa_ir_scientists_write_data_to_md,
+    #            template_path="scripts/templates/fa_IR/scientists/scientists_template.md", dry_run=False)
     pass
