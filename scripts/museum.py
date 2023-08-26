@@ -130,6 +130,9 @@ def fa_ir_scientists_extract_table_from_md(loaded_file: fm.Post) -> ScientistTab
 
 
 def fa_ir_scientists_extract_data_from_md(dirpath, f) -> ScientistData:
+    # f_text = blogger.read_file(osp.join(dirpath, f))
+    # print(f_text)
+    # fl = fm.loads(f_text)
     fl = fm.load(osp.join(dirpath, f))
     # print("[debug]", fl.__dict__)
     return ScientistData(

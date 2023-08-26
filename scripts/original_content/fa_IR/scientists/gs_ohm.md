@@ -16,15 +16,15 @@ tags: مرده، فیزیکدان
 <h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 گئورگ زیمون اُهم (به آلمانی:
-<span class="english-text">Georg Simon Ohm</span>
-) (زاده 16 مارس 1789 - درگذشته 6 ژوئیه 1854) فیزیک‌دان آلمانی، و دانش‌آموخته
+<span class="english-text">Georg Simon Ohm</span>)
+(زاده 16 مارس 1789 - درگذشته 6 ژوئیه 1854) فیزیک‌دان آلمانی، و دانش‌آموخته
 از دانشگاه ارلانگن بود. 
 </p>
 <p>
 از اهم چندین اثر به جای مانده‌است، که از همه مهم‌تر، مقاله او در برلین با
 عنوان «روی‌کرد ریاضی به جریان الکتریکی» (به آلمانی:
-<span class="english-text">Die galvanische Kette, mathematisch bearbeitet</span>
-) بود.
+<span class="english-text">Die galvanische Kette, mathematisch bearbeitet</span>)
+بود.
 </p>
 <p>
 اهم نخستین کسی بود که رابطه ولتاژ، جریان و مقاومت الکتریکی را پیش نهاد.
