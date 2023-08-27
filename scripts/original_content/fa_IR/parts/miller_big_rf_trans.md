@@ -1,6 +1,6 @@
 ---
 title: (R.F.)73-oscترانس F.I بزرگ
-header: ترانس (R.F.) بزرگ 73-OSC
+header: <span class="persian-heading">ترانس</span> (R.F.) <span class="persian-heading">بزرگ</span> 73-OSC
 author: M. MAD
 pic: pics/miller_big_rf_trans.png
 name: <span class="english-text">RF</span> مینیاتوری

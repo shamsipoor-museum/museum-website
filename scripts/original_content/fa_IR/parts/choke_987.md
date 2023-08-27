@@ -1,6 +1,6 @@
 ---
 title: چُک 987
-header: چُک 987
+header: <span class="persian-heading">چُک</span> 987
 author: M. MAD
 pic: pics/choke_987.png
 name: چُک <span class="english-text">RF</span>

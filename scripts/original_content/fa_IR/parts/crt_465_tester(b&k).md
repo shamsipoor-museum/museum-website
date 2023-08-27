@@ -1,6 +1,6 @@
 ---
-title: CRT 465 tester(B&K)
-header: CRT 465 tester (B&K)
+title: CRT 465 tester(B&amp;K)
+header: CRT 465 tester (B&amp;K)
 author: M. MAD
 pic: pics/crt_465_tester(b&k).png
 name: تستر لامپ اشعه کاتدی
