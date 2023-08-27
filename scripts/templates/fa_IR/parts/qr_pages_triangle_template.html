@@ -4,24 +4,28 @@
 <title>{{title}}</title>
 <meta name="author" content="M. MAD">
 <link rel="icon" type="image/png" href="../../../../favicon.png">
-<link rel="stylesheet" href="../../../qr_pages_table_style.css">
+<link rel="stylesheet" href="../../../qr_pages_triangle_style.css">
 <link rel="stylesheet" href="../../../fonts.css">
 </head>
 <body>
 <div class="page-container">
+<div> {# This is here just to make outer borders of table visible #}
 <table>
-  {%-  for row in table %}
+  <tr><td></td><td></td><td></td><td></td></tr>
   <tr>
-    {%-  for qr_code in row %}
+    {%- for qr_code in table[0] %}
     <td>
-      <div><img class="qr-code-img" src="../{{qr_code}}.png"></div>
+      <div class="img-container">
+        <img class="qr-code-img" src="../{{qr_code}}.png">
+      </div>
       <div class="qr-code-title">{{qr_code.replace("_", " ")}}</div>
     </td>
     {%- endfor %}
   </tr>
-  {%- endfor %}
+  <tr><td></td><td></td><td></td><td></td></tr>
 </table>
-<p dir="rtl" align="right" style="margin: 1%; text-align: center; font-family: BNazanin; font-size: 22px">
+</div>
+<p dir="rtl" align="right" class="work-of">
 کاری از:
 <b>
 محمدمحسن اکبرپور درابی

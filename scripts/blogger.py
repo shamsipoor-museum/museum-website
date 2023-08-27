@@ -19,6 +19,7 @@ from os import path as osp
 import re
 from typing import Optional, Union, Type, Callable, Tuple
 
+# from pprint import pprint
 from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -26,6 +27,7 @@ import qrcode as qr
 
 # ge = ("index.html", "qr_codes.html")
 GE = (r"index\.html", r"qr_codes_.+\.html")
+
 
 @define
 class SecSpec:
@@ -152,6 +154,8 @@ def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE,
     generate_qr_imgs(sec, exceptions=exceptions, dry_run=dry_run)
     if qr_pages:
         pages = extract_qr_table(sec, rows=qr_pages_rows, cols=qr_pages_cols, exceptions=qr_pages_exceptions)
+        # print(qr_pages_rows, qr_pages_cols)
+        # pprint(pages)
         for i, table in enumerate(pages, start=1):
             write_qr_table(table, template,
                            osp.join(osp.join(sec.output_path, sec.qr_pages_dirname), qr_pages_filename_fmt.format(i=i)),

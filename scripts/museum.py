@@ -374,7 +374,8 @@ fa_ir_parts = blogger.SecSpec(
     index_template_path="scripts/templates/fa_IR/parts/parts_index_template.html",
     extract_index=fa_ir_parts_extract_index,
     write_index=fa_ir_parts_write_index,
-    qr_template_path="scripts/templates/fa_IR/parts/qr_pages_template.html",
+    # qr_template_path="scripts/templates/fa_IR/parts/qr_pages_table_template.html",
+    qr_template_path="scripts/templates/fa_IR/parts/qr_pages_triangle_template.html",
 )
 fa_ir_scientists = blogger.SecSpec(
     name="fa_ir_scientists",
@@ -388,7 +389,8 @@ fa_ir_scientists = blogger.SecSpec(
     index_template_path="scripts/templates/fa_IR/scientists/scientists_index_template.html",
     extract_index=fa_ir_scientists_extract_index,
     write_index=fa_ir_scientists_write_index,
-    qr_template_path="scripts/templates/fa_IR/scientists/qr_pages_template.html",
+    # qr_template_path="scripts/templates/fa_IR/scientists/qr_pages_table_template.html",
+    qr_template_path="scripts/templates/fa_IR/scientists/qr_pages_triangle_template.html",
 )
 fa_ir_root.sub_specs = [fa_ir_parts, fa_ir_scientists]
 document_root.sub_specs = [fa_ir_root]
@@ -400,11 +402,12 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
     blogger.generate(fa_ir_parts, content_exceptions=(
         r"index\.html", r"qr_codes_.+\.html", r"choke_987\.md",
         r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md", r"miller_big_rf_trans\.md"
-    ))
+    ), qr_pages_rows=1, qr_pages_cols=4)
 
     # blogger.generate_index(fa_ir_scientists, exceptions=blogger.GE)
     # blogger.generate_qr_codes(fa_ir_scientists, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
-    blogger.generate(fa_ir_scientists)
+    # blogger.generate(fa_ir_scientists)
+    blogger.generate(fa_ir_scientists, qr_pages_rows=1, qr_pages_cols=3)
 
 
 if __name__ == "__main__":
