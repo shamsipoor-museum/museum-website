@@ -407,7 +407,7 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
     # blogger.generate_index(fa_ir_scientists, exceptions=blogger.GE)
     # blogger.generate_qr_codes(fa_ir_scientists, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
     # blogger.generate(fa_ir_scientists)
-    blogger.generate(fa_ir_scientists, qr_pages_rows=1, qr_pages_cols=3)
+    blogger.generate(fa_ir_scientists, qr_pages_rows=1, qr_pages_cols=4)
 
 
 if __name__ == "__main__":
