@@ -1,6 +1,6 @@
 ---
-title: Leader lcr-745
-header: Leader lcr-745
+title: Leader LCR-745
+header: Leader LCR-745
 author: M. MAD
 pic: pics/leader_lcr-745.png
 name: <span class="english-text">LCR</span> متر

@@ -1,6 +1,6 @@
 ---
-title: Digital storage adaptor dsa 5000
-header: Digital storage adaptor dsa 5000
+title: Digital Storage Adaptor DSA 5000
+header: Digital Storage Adaptor DSA 5000
 author: M. MAD
 pic: pics/digital_storage_adaptor_dsa_5000.png
 name: مبدل ذخیره‌سازی دیجیتال

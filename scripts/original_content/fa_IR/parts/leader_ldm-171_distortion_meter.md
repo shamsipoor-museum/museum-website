@@ -1,6 +1,6 @@
 ---
-title: Leader ldm-171 distortion meter
-header: Leader ldm-171 distortion meter
+title: Leader LDM-171 Distortion Meter
+header: Leader LDM-171 Distortion Meter
 author: M. MAD
 pic: pics/leader_ldm-171_distortion_meter.png
 name: Distortion Meter

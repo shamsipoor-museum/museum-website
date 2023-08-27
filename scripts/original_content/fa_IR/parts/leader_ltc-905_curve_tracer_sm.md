@@ -1,6 +1,6 @@
 ---
-title: Leader_ltc-905_curve_tracer_sm
-header: Leader_ltc-905_curve_tracer_sm
+title: Leader LTC-905 Curve Tracer SM
+header: Leader LTC-905 Curve Tracer SM
 author: M. MAD
 pic: pics/leader_ltc-905_curve_tracer_sm.png
 name: ردیاب منحنی با اسکپ

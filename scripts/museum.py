@@ -16,6 +16,7 @@
 import sys
 import os
 from os import path as osp
+from pprint import pprint
 from datetime import date
 from typing import Optional, Union, Type, Callable, Tuple, Dict
 
@@ -24,7 +25,7 @@ from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 import frontmatter as fm
 
-import blogger
+import blogger as b
 
 PREFIX = "https://shamsipoor-museum.github.io/museum-website/"
 FA_IR_PREFIX = PREFIX + "fa_IR/"
@@ -130,7 +131,7 @@ def fa_ir_scientists_extract_table_from_md(loaded_file: fm.Post) -> ScientistTab
 
 
 def fa_ir_scientists_extract_data_from_md(dirpath, f) -> ScientistData:
-    # f_text = blogger.read_file(osp.join(dirpath, f))
+    # f_text = b.read_file(osp.join(dirpath, f))
     # print(f_text)
     # fl = fm.loads(f_text)
     fl = fm.load(osp.join(dirpath, f))
@@ -144,19 +145,19 @@ def fa_ir_scientists_extract_data_from_md(dirpath, f) -> ScientistData:
     )
 
 
-def fa_ir_scientists_extract_data(sec: blogger.SecSpec, exceptions: Tuple[str] = blogger.GE) -> Dict[str, ScientistData]:
-    exceptions = blogger.compile_re_collection(exceptions)
+def fa_ir_scientists_extract_data(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> Dict[str, ScientistData]:
+    exceptions = b.compile_re_collection(exceptions)
     sd_dict = dict()
     for dirpath, dirnames, filenames in os.walk(sec.input_path):
         for f in filenames:
             if f.endswith(".md"):
-                if blogger.search_re_collection(exceptions, f):
+                if b.search_re_collection(exceptions, f):
                     continue
-                sd_dict[f] = fa_ir_scientists_extract_data_from_md(dirpath, f)
+                sd_dict[f] = sec.extract_data_from_md(dirpath, f)
     return sd_dict
 
 
-def fa_ir_scientists_write_data(sec: blogger.SecSpec, sd_dict: Dict[str, ScientistData]):
+def fa_ir_scientists_write_data(sec: b.SecSpec, sd_dict: Dict[str, ScientistData]):
     env = Environment(
         loader=FileSystemLoader(osp.dirname(sec.template_path)),
         autoescape=False  # select_autoescape()
@@ -208,7 +209,7 @@ def fa_ir_scientists_extract_table_from_soup_no_escape(soup: BeautifulSoup) -> S
 
 def fa_ir_scientists_extract_index_row(dirpath: str, f: str) -> ScientistsIndexRow:
     path = osp.join(dirpath, f)
-    f_text = blogger.read_file(path)
+    f_text = b.read_file(path)
     soup = BeautifulSoup(f_text, "html.parser")
     return ScientistsIndexRow(
         filename=f,
@@ -218,19 +219,19 @@ def fa_ir_scientists_extract_index_row(dirpath: str, f: str) -> ScientistsIndexR
     )
 
 
-def fa_ir_scientists_extract_index(sec: blogger.SecSpec, exceptions: Tuple[str] = blogger.GE) -> tuple:
-    exceptions = blogger.compile_re_collection(exceptions)
+def fa_ir_scientists_extract_index(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> tuple:
+    exceptions = b.compile_re_collection(exceptions)
     index = []
     for dirpath, dirnames, filenames in os.walk(sec.output_path):
         for f in filenames:
             if f.endswith(".html"):
-                if blogger.search_re_collection(exceptions, f):
+                if b.search_re_collection(exceptions, f):
                     continue
                 index.append(fa_ir_scientists_extract_index_row(dirpath, f))
     return tuple(index)
 
 
-def fa_ir_scientists_write_index(sec: blogger.SecSpec, index: tuple, title="فهرست دانشمندان"):
+def fa_ir_scientists_write_index(sec: b.SecSpec, index: tuple, title="فهرست دانشمندان"):
     env = Environment(
         loader=FileSystemLoader(osp.dirname(sec.index_template_path)),
         autoescape=select_autoescape()
@@ -269,19 +270,19 @@ def fa_ir_parts_extract_data_from_md(dirpath, f) -> PartData:
     )
 
 
-def fa_ir_parts_extract_data(sec: blogger.SecSpec, exceptions: Tuple[str] = blogger.GE) -> Dict[str, PartData]:
-    exceptions = blogger.compile_re_collection(exceptions)
+def fa_ir_parts_extract_data(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> Dict[str, PartData]:
+    exceptions = b.compile_re_collection(exceptions)
     pd_dict = dict()
     for dirpath, dirnames, filenames in os.walk(sec.input_path):
         for f in filenames:
             if f.endswith(".md"):
-                if blogger.search_re_collection(exceptions, f):
+                if b.search_re_collection(exceptions, f):
                     continue
-                pd_dict[f] = fa_ir_parts_extract_data_from_md(dirpath, f)
+                pd_dict[f] = sec.extract_data_from_md(dirpath, f)
     return pd_dict
 
 
-def fa_ir_parts_write_data(sec: blogger.SecSpec, pd_dict: Dict[str, PartData]):
+def fa_ir_parts_write_data(sec: b.SecSpec, pd_dict: Dict[str, PartData]):
     env = Environment(
         loader=FileSystemLoader(osp.dirname(sec.template_path)),
         autoescape=False  # select_autoescape()
@@ -328,7 +329,7 @@ def fa_ir_parts_extract_table_from_soup_no_escape(soup: BeautifulSoup) -> PartTa
 
 def fa_ir_parts_extract_index_row(dirpath: str, f: str) -> PartsIndexRow:
     path = osp.join(dirpath, f)
-    f_text = blogger.read_file(path)
+    f_text = b.read_file(path)
     soup = BeautifulSoup(f_text, "html.parser")
     return PartsIndexRow(
         filename=f,
@@ -338,19 +339,19 @@ def fa_ir_parts_extract_index_row(dirpath: str, f: str) -> PartsIndexRow:
     )
 
 
-def fa_ir_parts_extract_index(sec: blogger.SecSpec, exceptions: Tuple[str] = blogger.GE) -> tuple:
-    exceptions = blogger.compile_re_collection(exceptions)
+def fa_ir_parts_extract_index(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> tuple:
+    exceptions = b.compile_re_collection(exceptions)
     index = []
     for dirpath, dirnames, filenames in os.walk(sec.output_path):
         for f in filenames:
             if f.endswith(".html"):
-                if blogger.search_re_collection(exceptions, f):
+                if b.search_re_collection(exceptions, f):
                     continue
                 index.append(fa_ir_parts_extract_index_row(dirpath, f))
     return tuple(index)
 
 
-def fa_ir_parts_write_index(sec: blogger.SecSpec, index: tuple, title="فهرست قطعات"):
+def fa_ir_parts_write_index(sec: b.SecSpec, index: tuple, title="فهرست قطعات"):
     env = Environment(
         loader=FileSystemLoader(osp.dirname(sec.index_template_path)),
         autoescape=select_autoescape()
@@ -360,32 +361,147 @@ def fa_ir_parts_write_index(sec: blogger.SecSpec, index: tuple, title="فهرس�
         f.write(template.render(title=title, index=index))
 
 
-document_root = blogger.SecSpec(name="root", output_path="docs", url_prefix=PREFIX)
-fa_ir_root = blogger.SecSpec(name="fa_ir", output_path="docs/fa_IR", url_prefix=FA_IR_PREFIX)
-fa_ir_parts = blogger.SecSpec(
+#  ____                                  ____       _            _   _     _
+# |  _ \ _____   _____ _ __ ___  ___ _  / ___|  ___(_) ___ _ __ | |_(_)___| |_ ___
+# | |_) / _ \ \ / / _ \ '__/ __|/ _ (_) \___ \ / __| |/ _ \ '_ \| __| / __| __/ __|
+# |  _ <  __/\ V /  __/ |  \__ \  __/_   ___) | (__| |  __/ | | | |_| \__ \ |_\__ \
+# |_| \_\___| \_/ \___|_|  |___/\___(_) |____/ \___|_|\___|_| |_|\__|_|___/\__|___/
+
+
+def fa_ir_scientists_extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> ScientistData:
+    path = osp.join(dirpath, f)
+    f_text = b.read_file(path)
+    soup = BeautifulSoup(f_text, "html.parser")
+    return ScientistData(
+        title=soup.title.text,
+        header=soup.h1.text,  # TODO
+        pic=soup.img["src"],
+        table=fa_ir_scientists_extract_table_from_soup_no_escape(soup),
+        bio=str(
+            soup.body.find("div", {"class": "fa-IR-explanation"})
+        ).lstrip('<div class="fa-IR-explanation">').rstrip('</div>')
+    )
+
+
+#  ____                                  ____            _
+# |  _ \ _____   _____ _ __ ___  ___ _  |  _ \ __ _ _ __| |_ ___
+# | |_) / _ \ \ / / _ \ '__/ __|/ _ (_) | |_) / _` | '__| __/ __|
+# |  _ <  __/\ V /  __/ |  \__ \  __/_  |  __/ (_| | |  | |_\__ \
+# |_| \_\___| \_/ \___|_|  |___/\___(_) |_|   \__,_|_|   \__|___/
+
+
+def fa_ir_parts_extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> PartData:
+    path = osp.join(dirpath, f)
+    f_text = b.read_file(path)
+    soup = BeautifulSoup(f_text, "html.parser")
+    # ep = [p.text for p in e.find_all("p") for e in soup.body.find_all("div", {"class": "fa-IR-explanation"})]
+    # ep = []
+    # for e in soup.body.find_all("div", {"class": "fa-IR-explanation"}):
+    #     for p in e.find_all("p"):
+    #         # print(md(str(p)))
+    #         ep.append(md(str(p)) if markdownify else p.text)
+    return PartData(
+        title=str(soup.title)[7:-8],
+        header=str(soup.h1)[43:-5],  # TODO
+        pic=soup.img["src"],
+        table=fa_ir_parts_extract_table_from_soup_no_escape(soup),
+        explanation_paragraphs=str(
+            soup.body.find("div", {"class": "fa-IR-explanation"})
+        ).lstrip('<div class="fa-IR-explanation">').rstrip('</div>')
+    )
+
+
+def fa_ir_write_data_to_md(pd: Union[ScientistData, PartData],
+                           template: Template, path: str, mode: str = "w"):
+    with open(path, mode) as f:
+        f.write(template.render(pd.__dict__))
+
+
+def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str] = b.GE,
+                                qr_pages: bool = True,
+                                qr_pages_exceptions: Tuple[str] = b.GE,
+                                qr_pages_rows: int = 5, qr_pages_cols: int = 4,
+                                qr_pages_filename_fmt: str = "qr_codes_{i}.html",
+                                qr_pages_title_fmt: str = "QR Codes {i}",
+                                dry_run: bool = False):
+    env = Environment(
+        loader=FileSystemLoader(osp.dirname(sec.qr_template_path)),
+        autoescape=False  # select_autoescape()
+    )
+    template = env.get_template(osp.split(sec.qr_template_path)[1])
+
+    b.generate_qr_imgs(sec, exceptions=exceptions, dry_run=dry_run)
+    if qr_pages:
+        pages = b.extract_qr_table(sec, rows=qr_pages_rows, cols=qr_pages_cols, exceptions=qr_pages_exceptions)
+        # print(qr_pages_rows, qr_pages_cols)
+        # pprint(pages)
+        for i, table in enumerate(pages, start=1):
+            # pprint(f'{sec.input_path = }; {table}; {[p + ".md" for p in table[0]]}')
+            pprint(
+                [
+                    table,
+                    [
+                        sec.extract_data_from_md(
+                            dirpath=sec.input_path,
+                            f=p + ".md"
+                        ).header
+                        for p in table[0]
+                    ]
+                ])
+            b.write_qr_table(
+                [
+                    table,
+                    [
+                        sec.extract_data_from_md(
+                            dirpath=sec.input_path,
+                            f=p + ".md"
+                        ).header
+                        for p in table[0]
+                    ]
+                ],
+                template,
+                osp.join(osp.join(sec.output_path, sec.qr_pages_dirname),
+                         qr_pages_filename_fmt.format(i=i)),
+                title=qr_pages_title_fmt.format(i=i)
+            )
+
+
+document_root = b.SecSpec(name="root", output_path="docs", url_prefix=PREFIX)
+fa_ir_root = b.SecSpec(name="fa_ir", output_path="docs/fa_IR", url_prefix=FA_IR_PREFIX)
+fa_ir_parts = b.SecSpec(
     name="fa_ir_parts",
     output_path="docs/fa_IR/parts",
     url_prefix=FA_IR_PARTS_PREFIX,
     input_path="scripts/original_content/fa_IR/parts",
     data_spec=PartData,
     template_path="scripts/templates/fa_IR/parts/parts_template.html",
+    md_template_path="scripts/templates/fa_IR/parts/parts_template.md",
     extract_data=fa_ir_parts_extract_data,
     write_data=fa_ir_parts_write_data,
+    extract_data_from_md=fa_ir_parts_extract_data_from_md,
+    write_data_to_html=None,
+    extract_data_from_html=fa_ir_parts_extract_data_from_html,
+    write_data_to_md=fa_ir_write_data_to_md,
     index_template_path="scripts/templates/fa_IR/parts/parts_index_template.html",
     extract_index=fa_ir_parts_extract_index,
     write_index=fa_ir_parts_write_index,
     # qr_template_path="scripts/templates/fa_IR/parts/qr_pages_table_template.html",
     qr_template_path="scripts/templates/fa_IR/parts/qr_pages_triangle_template.html",
 )
-fa_ir_scientists = blogger.SecSpec(
+fa_ir_scientists = b.SecSpec(
     name="fa_ir_scientists",
     output_path="docs/fa_IR/scientists",
     url_prefix=FA_IR_SCIENTISTS_PREFIX,
     input_path="scripts/original_content/fa_IR/scientists",
     data_spec=ScientistData,
     template_path="scripts/templates/fa_IR/scientists/scientists_template.html",
+    md_template_path="scripts/templates/fa_IR/scientists/scientists_template.md",
     extract_data=fa_ir_scientists_extract_data,
     write_data=fa_ir_scientists_write_data,
+    extract_data_from_md=fa_ir_scientists_extract_data_from_md,
+    write_data_to_html=None,
+    extract_data_from_html=fa_ir_scientists_extract_data_from_html,
+    write_data_to_md=fa_ir_write_data_to_md,
     index_template_path="scripts/templates/fa_IR/scientists/scientists_index_template.html",
     extract_index=fa_ir_scientists_extract_index,
     write_index=fa_ir_scientists_write_index,
@@ -397,17 +513,21 @@ document_root.sub_specs = [fa_ir_root]
 
 
 def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
-    # blogger.generate_index(fa_ir_parts, exceptions=blogger.GE)
-    # blogger.generate_qr_codes(fa_ir_parts, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
-    blogger.generate(fa_ir_parts, content_exceptions=(
+    # b.generate_index(fa_ir_parts, exceptions=b.GE)
+    b.generate(fa_ir_parts, content_exceptions=(
         r"index\.html", r"qr_codes_.+\.html", r"choke_987\.md",
         r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md", r"miller_big_rf_trans\.md"
-    ), qr_pages_rows=1, qr_pages_cols=4)
+    ), qr_pages=False)
+    generate_beautiful_qr_codes(fa_ir_parts, exceptions=b.GE,
+                                qr_pages_exceptions=b.GE,
+                                qr_pages_rows=1, qr_pages_cols=4)
 
-    # blogger.generate_index(fa_ir_scientists, exceptions=blogger.GE)
-    # blogger.generate_qr_codes(fa_ir_scientists, exceptions=blogger.GE, qr_pages_exceptions=blogger.GE)
-    # blogger.generate(fa_ir_scientists)
-    blogger.generate(fa_ir_scientists, qr_pages_rows=1, qr_pages_cols=4)
+    # b.generate_index(fa_ir_scientists, exceptions=b.GE)
+    # b.generate(fa_ir_scientists)
+    b.generate(fa_ir_scientists, qr_pages=False)
+    generate_beautiful_qr_codes(fa_ir_scientists, exceptions=b.GE,
+                                qr_pages_exceptions=b.GE,
+                                qr_pages_rows=1, qr_pages_cols=4)
 
 
 if __name__ == "__main__":

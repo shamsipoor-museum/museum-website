@@ -38,12 +38,13 @@ class SecSpec:
     sub_specs: Optional[list] = None
     data_spec: Optional[Type] = None
     template_path: Optional[str] = None
-    extract_data: Optional[Callable] = None
+    md_template_path: Optional[str] = None  # template_path is an html template
+    extract_data: Optional[Callable] = None  # function to extract data_specs from files of input_path directory
     write_data: Optional[Callable] = None
-    _extract_data_from_md: Optional[Callable] = None  # DEPRECATED
-    _extract_data_from_html: Optional[Callable] = None  # DEPRECATED
-    _write_data_to_md: Optional[Callable] = None  # DEPRECATED
-    _write_data_to_html: Optional[Callable] = None  # DEPRECATED
+    extract_data_from_md: Optional[Callable] = None  # DEPRECATED
+    extract_data_from_html: Optional[Callable] = None  # DEPRECATED
+    write_data_to_md: Optional[Callable] = None  # DEPRECATED
+    write_data_to_html: Optional[Callable] = None  # DEPRECATED
     index_template_path: Optional[str] = None
     index_filename: str = "index.html"  # Are relative to output_path
     extract_index: Optional[Callable] = None
@@ -60,7 +61,7 @@ def _generate_html(sec: SecSpec, exceptions: Tuple[str] = GE):  # DEPRECATED
                 if f.endswith(".md"):
                     if f in exceptions:
                         continue
-                    sec._write_data_to_html(sec._extract_data_from_md)  # pseudo code
+                    sec.write_data_to_html(sec.extract_data_from_md)  # pseudo code
         for dirpath, dirnames, filenames in os.walk(sec.output_path):
             for f in filenames:
                 if f.endswith(".html"):
@@ -137,7 +138,7 @@ def extract_qr_table(sec: SecSpec, rows: int = 5, cols: int = 4,
 
 def write_qr_table(data, template, path, mode="w", title="QR Codes"):
     with open(path, mode=mode) as f:
-        f.write(template.render(title=title, table=data))
+        f.write(template.render(title=title, table=data, enumerate=enumerate, len=len))
 
 
 def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE,
