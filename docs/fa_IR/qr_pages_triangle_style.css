@@ -17,8 +17,8 @@ table {
     border-collapse: collapse;
     /* width: 100%; */
     position: relative;
-    top: 1cm;
-    left: 1cm;
+    top: 0.75cm;
+    left: 0.75cm;
 }
   
 td, th {
