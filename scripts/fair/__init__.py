@@ -18,9 +18,9 @@ from typing import Union
 from jinja2 import Template
 
 import blogger as b
-import common as c
-import parts as p
-import scientists as s
+from . import common as c
+from . import parts as p
+from . import scientists as s
 
 
 # Reverse

@@ -24,7 +24,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 import frontmatter as fm
 
 import blogger as b
-import common as c
+from . import common as c
 
 PREFIX = c.FA_IR_PREFIX + "parts/"
 
