@@ -88,7 +88,7 @@ document_root = b.SecSpec(
 
 
 def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
-    # b.generate_index(fa_ir.parts, exceptions=b.GE)
+    # b.generate_index(fair.parts, exceptions=b.GE)
     b.generate(fair.parts, content_exceptions=(
         r"index\.html", r"qr_codes_.+\.html", r"choke_987\.md",
         r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md", r"miller_big_rf_trans\.md"
@@ -97,8 +97,8 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
                                 qr_pages_exceptions=b.GE,
                                 qr_pages_rows=1, qr_pages_cols=4)
 
-    # b.generate_index(fa_ir.scientists, exceptions=b.GE)
-    # b.generate(fa_ir.scientists)
+    # b.generate_index(fair.scientists, exceptions=b.GE)
+    # b.generate(fair.scientists)
     b.generate(fair.scientists, qr_pages=False)
     generate_beautiful_qr_codes(fair.scientists, exceptions=b.GE,
                                 qr_pages_exceptions=b.GE,
