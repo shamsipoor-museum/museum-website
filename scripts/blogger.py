@@ -17,7 +17,7 @@ import sys
 import os
 from os import path as osp
 import re
-from typing import Optional, Union, Type, Callable, Tuple
+from typing import Optional, Union, Type, Callable, Tuple, List
 
 # from pprint import pprint
 from attrs import asdict, define, frozen, make_class, Factory
@@ -118,7 +118,7 @@ def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = 
 def extract_qr_table(sec: SecSpec, rows: int = 5, cols: int = 4,
                      exceptions: Tuple[str] = (r"index\.png", )) -> tuple:
     exceptions = compile_re_collection(exceptions)
-    pages = []
+    pages: List[List[List[str]]] = []
     for dirpath, dirnames, filenames in os.walk(osp.join(sec.output_path, sec.qr_dirname)):
         for f in filenames:
             if f.endswith(".png"):
@@ -142,8 +142,8 @@ def write_qr_table(data, template, path, mode="w", title="QR Codes"):
         f.write(template.render(title=title, table=data, enumerate=enumerate, len=len))
 
 
-def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE,
-                      qr_pages: bool = True, qr_pages_exceptions: Tuple[str] = GE,
+def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str, ...] = GE,
+                      qr_pages: bool = True, qr_pages_exceptions: Tuple[str, ...] = GE,
                       qr_pages_rows: int = 5, qr_pages_cols: int = 4,
                       qr_pages_filename_fmt: str = "qr_codes_{i}.html",
                       qr_pages_title_fmt: str = "QR Codes {i}", dry_run: bool = False):
@@ -164,10 +164,10 @@ def generate_qr_codes(sec: SecSpec, exceptions: Tuple[str] = GE,
                            title=qr_pages_title_fmt.format(i=i))
 
 
-def generate(sec: SecSpec, content_exceptions: Tuple[str] = GE,
-             index: bool = True, index_exceptions: Tuple[str] = GE,
-             qr: bool = True, qr_exceptions: Tuple[str] = GE,
-             qr_pages: bool = True, qr_pages_exceptions: Tuple[str] = GE,
+def generate(sec: SecSpec, content_exceptions: Tuple[str, ...] = GE,
+             index: bool = True, index_exceptions: Tuple[str, ...] = GE,
+             qr: bool = True, qr_exceptions: Tuple[str, ...] = GE,
+             qr_pages: bool = True, qr_pages_exceptions: Tuple[str, ...] = GE,
              qr_pages_rows: int = 5, qr_pages_cols: int = 4,
              qr_pages_filename_fmt: str = "qr_codes_{i}.html", qr_pages_title_fmt: str = "QR Codes {i}",
              args_pass_through: bool = True):

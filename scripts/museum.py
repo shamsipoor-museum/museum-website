@@ -30,9 +30,9 @@ import global_values as gv
 import fair
 
 
-def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str] = b.GE,
+def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str, ...] = b.GE,
                                 qr_pages: bool = True,
-                                qr_pages_exceptions: Tuple[str] = b.GE,
+                                qr_pages_exceptions: Tuple[str, ...] = b.GE,
                                 qr_pages_rows: int = 5, qr_pages_cols: int = 4,
                                 qr_pages_filename_fmt: str = "qr_codes_{i}.html",
                                 qr_pages_title_fmt: str = "QR Codes {i}",
