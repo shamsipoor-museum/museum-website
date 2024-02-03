@@ -55,6 +55,7 @@ class SecSpec:
 
 
 def _generate_html(sec: SecSpec, exceptions: Tuple[str] = GE):  # DEPRECATED
+    # DEPRECATED
     if sec.input_path is not None:
         for dirpath, dirnames, filenames in os.walk(sec.input_path):
             for f in filenames:
