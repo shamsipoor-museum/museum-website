@@ -7,7 +7,7 @@ name: حلقه فیلم آپارات 16 میلیمتری
 manufacturing_date: 1923
 category: حلقه‌فیلم‌ها
 manufacturer_name: Edison
-manufacturer_country: ژاپن
+manufacturer_country: آمریکا
 ---
 
 <h2 class="fa-IR-explanation-header">توضیحات</h2>
