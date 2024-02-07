@@ -54,7 +54,7 @@ class SecSpec:
     qr_pages_dirname: str = "qr_codes/pages"  # Are relative to output_path
 
 
-def _generate_html(sec: SecSpec, exceptions: Tuple[str] = GE):  # DEPRECATED
+def _generate_html(sec: SecSpec, exceptions: Tuple[str, ...] = GE):  # DEPRECATED
     # DEPRECATED
     if sec.input_path is not None:
         for dirpath, dirnames, filenames in os.walk(sec.input_path):
@@ -87,19 +87,19 @@ def search_re_collection(collection, string):
     return False
 
 
-def generate_content(sec: SecSpec, exceptions: Tuple[str] = GE):
+def generate_content(sec: SecSpec, exceptions: Tuple[str, ...] = GE):
     """Just chaining two calls, passing 'sec.extract_data()' to 'sec.write_data()'"""
     if sec.input_path is not None:
         sec.write_data(sec, sec.extract_data(sec, exceptions=exceptions))
 
 
-def generate_index(sec: SecSpec, exceptions: Tuple[str] = GE):
+def generate_index(sec: SecSpec, exceptions: Tuple[str, ...] = GE):
     """Just chaining two calls, passing 'sec.extract_index()' to 'sec.write_index()'"""
     if sec.input_path is not None:
         sec.write_index(sec, sec.extract_index(sec, exceptions=exceptions))
 
 
-def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = False):
+def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str, ...] = GE, dry_run: bool = False):
     exceptions = compile_re_collection(exceptions)
     for dirpath, dirnames, filenames in os.walk(sec.output_path):
         for f in filenames:
@@ -116,7 +116,7 @@ def generate_qr_imgs(sec: SecSpec, exceptions: Tuple[str] = GE, dry_run: bool = 
 
 
 def extract_qr_table(sec: SecSpec, rows: int = 5, cols: int = 4,
-                     exceptions: Tuple[str] = (r"index\.png", )) -> tuple:
+                     exceptions: Tuple[str, ...] = (r"index\.png", )) -> tuple:
     exceptions = compile_re_collection(exceptions)
     pages: List[List[List[str]]] = []
     for dirpath, dirnames, filenames in os.walk(osp.join(sec.output_path, sec.qr_dirname)):
