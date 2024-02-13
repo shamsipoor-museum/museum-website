@@ -2,11 +2,9 @@
 <html lang="fa-IR">
 <head>
 <title>{{title}}</title>
-<meta charset="UTF-8">
 <meta name="author" content="M. MAD">
-<link rel="icon" type="image/png" href="../../../../favicon.png">
-<link rel="stylesheet" href="../../../qr_pages_scientists_triangle_style.css">
-<link rel="stylesheet" href="../../../fonts.css">
+<link rel="stylesheet" href="qr_pages_triangle_style.css">
+<link rel="stylesheet" href="fonts.css">
 </head>
 <body>
 <div class="page-container">
@@ -23,7 +21,7 @@
         {% set qr_title = table[1][i] %}
         {% set has_span = '<span class="persian-heading">' in qr_title %}
         {% set qr_title = qr_title.replace('<span class="persian-heading">', "").replace("</span>", "") %}
-        {% set qr_title = qr_title[:28] if len(qr_title) < 31 else qr_title[:25] + "…" %}
+        {% set qr_title = qr_title[:23] if len(qr_title) < 26 else qr_title[:20] + "…" %}
         {{ qr_title if not has_span else '<span class="persian-heading">' + qr_title + "</span>" }}
       </div>
     </td>
