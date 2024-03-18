@@ -1,3 +1,4 @@
 .venv/
+scripts/one-time_qr_codes
 
 *.pyc
