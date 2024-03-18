@@ -16,7 +16,7 @@
 import os
 from os import path as osp
 # from datetime import date
-from typing import Optional, Union, Type, Callable, Tuple, Dict
+from typing import Any, Collection, Optional, Union, Type, Callable, Tuple, Dict
 
 from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
@@ -93,29 +93,29 @@ def extract_data_from_md(dirpath, f) -> ScientistData:
     )
 
 
-def extract_data(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> Dict[str, ScientistData]:
-    exceptions = b.compile_re_collection(exceptions)
-    sd_dict = dict()
-    for dirpath, dirnames, filenames in os.walk(sec.input_path):
-        for f in filenames:
-            if f.endswith(".md"):
-                if b.search_re_collection(exceptions, f):
-                    continue
-                sd_dict[f] = sec.extract_data_from_md(dirpath, f)
-    return sd_dict
+# def extract_data(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> Dict[str, ScientistData]:
+#     exceptions = b.compile_re_collection(exceptions)
+#     sd_dict = dict()
+#     for dirpath, dirnames, filenames in os.walk(sec.src_path):
+#         for f in filenames:
+#             if f.endswith(".md"):
+#                 if b.search_re_collection(exceptions, f):
+#                     continue
+#                 sd_dict[f] = sec.extract_data_from_md(dirpath, f)
+#     return sd_dict
 
 
-def write_data(sec: b.SecSpec, sd_dict: Dict[str, ScientistData]):
-    env = Environment(
-        loader=FileSystemLoader(osp.dirname(sec.template_path)),
-        autoescape=False  # select_autoescape()
-    )
-    template = env.get_template(osp.basename(sec.template_path))
-    for filename in sd_dict:
-        # print(osp.join(sec.output_path, filename.replace(".md", ".html")),
-        #       pd_dict[filename], sep="\n---\n", end="\n----------\n")
-        with open(osp.join(sec.output_path, filename.replace(".md", ".html")), mode="w") as f:
-            f.write(template.render(sd_dict[filename].__dict__))
+# def write_data(sec: b.SecSpec, sd_dict: Dict[str, ScientistData]):
+#     env = Environment(
+#         loader=FileSystemLoader(osp.dirname(sec.dst_template_path)),
+#         autoescape=False  # select_autoescape()
+#     )
+#     template = env.get_template(osp.basename(sec.dst_template_path))
+#     for filename in sd_dict:
+#         # print(osp.join(sec.output_path, filename.replace(".md", ".html")),
+#         #       pd_dict[filename], sep="\n---\n", end="\n----------\n")
+#         with open(osp.join(sec.dst_path, filename.replace(".md", ".html")), mode="w") as f:
+#             f.write(template.render(sd_dict[filename].__dict__))
 
 
 # Index
@@ -163,26 +163,26 @@ def extract_index_row(dirpath: str, f: str) -> ScientistsIndexRow:
     )
 
 
-def extract_index(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> tuple:
-    exceptions = b.compile_re_collection(exceptions)
-    index = []
-    for dirpath, dirnames, filenames in os.walk(sec.output_path):
-        for f in filenames:
-            if f.endswith(".html"):
-                if b.search_re_collection(exceptions, f):
-                    continue
-                index.append(extract_index_row(dirpath, f))
-    return tuple(index)
+# def extract_index(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> tuple:
+#     exceptions = b.compile_re_collection(exceptions)
+#     index = []
+#     for dirpath, dirnames, filenames in os.walk(sec.dst_path):
+#         for f in filenames:
+#             if f.endswith(".html"):
+#                 if b.search_re_collection(exceptions, f):
+#                     continue
+#                 index.append(extract_index_row(dirpath, f))
+#     return tuple(index)
 
 
-def write_index(sec: b.SecSpec, index: tuple, title="فهرست دانشمندان"):
-    env = Environment(
-        loader=FileSystemLoader(osp.dirname(sec.index_template_path)),
-        autoescape=select_autoescape()
-    )
-    template = env.get_template(osp.basename(sec.index_template_path))
-    with open(osp.join(sec.output_path, sec.index_filename), mode="w") as f:
-        f.write(template.render(title=title, index=index))
+# def write_index(sec: b.SecSpec, index: Collection[Any]):
+#     env = Environment(
+#         loader=FileSystemLoader(osp.dirname(sec.index_template_path)),
+#         autoescape=select_autoescape()
+#     )
+#     template = env.get_template(osp.basename(sec.index_template_path))
+#     with open(osp.join(sec.dst_path, sec.index_filename), mode="w") as f:
+#         f.write(template.render(title=sec.index_title, index=index))
 
 
 # Reverse

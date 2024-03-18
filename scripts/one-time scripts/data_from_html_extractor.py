@@ -31,14 +31,14 @@ import museum as m
 def html_to_md(sec: b.SecSpec, exceptions: Optional[Tuple[str]] = b.GE,
                dry_run: bool = True):
     env = Environment(
-        loader=FileSystemLoader(osp.dirname(sec.md_template_path)),
+        loader=FileSystemLoader(osp.dirname(sec.src_template_path)),
         autoescape=False  # select_autoescape()
     )
-    template = env.get_template(osp.basename(sec.md_template_path))
+    template = env.get_template(osp.basename(sec.src_template_path))
 
     exceptions = b.compile_re_collection(exceptions)
     # data_dict = dict()
-    for dirpath, dirnames, filenames in os.walk(sec.output_path):
+    for dirpath, dirnames, filenames in os.walk(sec.dst_path):
         for f in filenames:
             if f.endswith(".html"):
                 if b.search_re_collection(exceptions, f):
@@ -50,7 +50,7 @@ def html_to_md(sec: b.SecSpec, exceptions: Optional[Tuple[str]] = b.GE,
                     print("---")
                 else:
                     sec.write_data_to_md(extracted_data, template,
-                                         osp.join(sec.input_path, f.replace(".html", ".md")))
+                                         osp.join(sec.src_path, f.replace(".html", ".md")))
 
 
 # def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,

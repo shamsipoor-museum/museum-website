@@ -38,10 +38,10 @@ def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str, ...] = b.
                                 qr_pages_title_fmt: str = "QR Codes {i}",
                                 dry_run: bool = False):
     env = Environment(
-        loader=FileSystemLoader(osp.dirname(sec.qr_template_path)),
+        loader=FileSystemLoader(osp.dirname(sec.qrpages_template_path)),
         autoescape=False  # select_autoescape()
     )
-    template = env.get_template(osp.split(sec.qr_template_path)[1])
+    template = env.get_template(osp.split(sec.qrpages_template_path)[1])
 
     b.generate_qr_imgs(sec, exceptions=exceptions, dry_run=dry_run)
     if qr_pages:
@@ -54,8 +54,8 @@ def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str, ...] = b.
                 [
                     table,
                     [
-                        sec.extract_data_from_md(
-                            dirpath=sec.input_path,
+                        sec.data_extractor(
+                            dirpath=sec.src_path,
                             f=p + ".md"
                         ).header
                         for p in table[0]
@@ -65,15 +65,15 @@ def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str, ...] = b.
                 [
                     table,
                     [
-                        sec.extract_data_from_md(
-                            dirpath=sec.input_path,
+                        sec.data_extractor(
+                            dirpath=sec.src_path,
                             f=p + ".md"
                         ).header
                         for p in table[0]
                     ]
                 ],
                 template,
-                osp.join(osp.join(sec.output_path, sec.qr_pages_dirname),
+                osp.join(osp.join(sec.dst_path, sec.qrpages_dirname),
                          qr_pages_filename_fmt.format(i=i)),
                 title=qr_pages_title_fmt.format(i=i)
             )
@@ -81,7 +81,7 @@ def generate_beautiful_qr_codes(sec: b.SecSpec, exceptions: Tuple[str, ...] = b.
 
 document_root = b.SecSpec(
     name="root",
-    output_path="docs",
+    dst_path="docs",
     url_prefix=gv.PREFIX,
     sub_specs=[fair.root]
 )
