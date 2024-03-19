@@ -32,7 +32,7 @@ PREFIX = c.FA_IR_PREFIX + "parts/"
 @frozen
 class PartTable:
     name: str = ""
-    manufacturing_date: int = 0
+    manufacturing_date: Union[int, str] = ""
     category: str = ""
     manufacturer_name: str = ""
     manufacturer_country: str = ""
@@ -58,7 +58,7 @@ class PartsIndexRow:
     table: Optional[PartTable] = None
 
 
-def extract_table_from_md(loaded_file: fm.Post) -> PartTable:
+def md_table_extractor(loaded_file: fm.Post) -> PartTable:
     return PartTable(
         name=loaded_file["name"],
         manufacturing_date=loaded_file["manufacturing_date"],
@@ -68,46 +68,22 @@ def extract_table_from_md(loaded_file: fm.Post) -> PartTable:
     )
 
 
-def extract_data_from_md(dirpath: str, f: str) -> PartData:
+def md_data_extractor(dirpath: str, f: str) -> PartData:
     fl = fm.load(osp.join(dirpath, f))
     # print("[debug]", fl.__dict__)
     return PartData(
         title=fl["title"],
         header=fl["header"],
         pic=fl["pic"],
-        table=extract_table_from_md(fl),
+        table=md_table_extractor(fl),
         explanation_paragraphs=fl.content
     )
 
 
-# def extract_data(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> Dict[str, PartData]:
-#     exceptions = b.compile_re_collection(exceptions)
-#     pd_dict = dict()
-#     for dirpath, dirnames, filenames in os.walk(sec.src_path):
-#         for f in filenames:
-#             if f.endswith(".md"):
-#                 if b.search_re_collection(exceptions, f):
-#                     continue
-#                 pd_dict[f] = sec.extract_data_from_md(dirpath, f)
-#     return pd_dict
-
-
-# def write_data(sec: b.SecSpec, pd_dict: Dict[str, PartData]):
-#     env = Environment(
-#         loader=FileSystemLoader(osp.dirname(sec.dst_template_path)),
-#         autoescape=False  # select_autoescape()
-#     )
-#     template = env.get_template(osp.basename(sec.dst_template_path))
-#     for filename in pd_dict:
-#         # print(osp.join(sec.output_path, filename.replace(".md", ".html")),
-#         #       pd_dict[filename], sep="\n---\n", end="\n----------\n")
-#         with open(osp.join(sec.dst_path, filename.replace(".md", ".html")), mode="w") as f:
-#             f.write(template.render(pd_dict[filename].__dict__))
-
-
 # Index
 
-def extract_table_from_soup(soup: BeautifulSoup) -> PartTable:
+
+def soup_table_extractor(soup: BeautifulSoup) -> PartTable:
     rows = [row.text.strip("\n").replace("\n", ":").split(":")
             for row in soup.find_all("tr")]
     return PartTable(
@@ -119,7 +95,7 @@ def extract_table_from_soup(soup: BeautifulSoup) -> PartTable:
     )
 
 
-def extract_table_from_soup_no_escape(soup: BeautifulSoup) -> PartTable:
+def escapeless_soup_table_extractor(soup: BeautifulSoup) -> PartTable:
     rows = [str(row).strip("\n").replace("\n", ":").split(":")
             for row in soup.find_all("tr")]
     # print(rows)
@@ -132,46 +108,24 @@ def extract_table_from_soup_no_escape(soup: BeautifulSoup) -> PartTable:
     )
 
 
-def extract_index_row(dirpath: str, f: str) -> PartsIndexRow:
+def index_row_extractor(dirpath: str, f: str) -> PartsIndexRow:
     path = osp.join(dirpath, f)
-    f_text = b.read_file(path)
+    f_text = b.file_reader(path)
     soup = BeautifulSoup(f_text, "html.parser")
     return PartsIndexRow(
         filename=f,
         link=f,
         part_title=soup.title.text,
-        table=extract_table_from_soup(soup)
+        table=soup_table_extractor(soup)
     )
-
-
-# def extract_index(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> tuple:
-#     exceptions = b.compile_re_collection(exceptions)
-#     index = []
-#     for dirpath, dirnames, filenames in os.walk(sec.dst_path):
-#         for f in filenames:
-#             if f.endswith(".html"):
-#                 if b.search_re_collection(exceptions, f):
-#                     continue
-#                 index.append(extract_index_row(dirpath, f))
-#     return tuple(index)
-
-
-# def write_index(sec: b.SecSpec, index: Collection[Any]):
-#     env = Environment(
-#         loader=FileSystemLoader(osp.dirname(sec.index_template_path)),
-#         autoescape=select_autoescape()
-#     )
-#     template = env.get_template(osp.basename(sec.index_template_path))
-#     with open(osp.join(sec.dst_path, sec.index_filename), mode="w") as f:
-#         f.write(template.render(title=sec.index_title, index=index))
 
 
 # Reverse
 
 
-def extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> PartData:
+def html_data_extractor(dirpath: str, f: str, markdownify: bool = False) -> PartData:
     path = osp.join(dirpath, f)
-    f_text = b.read_file(path)
+    f_text = b.file_reader(path)
     soup = BeautifulSoup(f_text, "html.parser")
     # ep = [p.text for p in e.find_all("p") for e in soup.body.find_all("div", {"class": "fa-IR-explanation"})]
     # ep = []
@@ -183,7 +137,7 @@ def extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> P
         title=str(soup.title)[7:-8],
         header=str(soup.h1)[43:-5],  # TODO
         pic=soup.img["src"],
-        table=extract_table_from_soup_no_escape(soup),
+        table=escapeless_soup_table_extractor(soup),
         explanation_paragraphs=str(
             soup.body.find("div", {"class": "fa-IR-explanation"})
         ).lstrip('<div class="fa-IR-explanation">').rstrip('</div>')

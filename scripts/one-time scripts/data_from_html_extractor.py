@@ -17,7 +17,7 @@ import sys
 import os
 from os import path as osp
 from datetime import date
-from typing import Optional, Union, Type, Callable, Tuple
+from typing import Any, Optional, Union, Type, Callable, Tuple
 
 from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
@@ -28,29 +28,33 @@ import blogger as b
 import museum as m
 
 
-def html_to_md(sec: b.SecSpec, exceptions: Optional[Tuple[str]] = b.GE,
-               dry_run: bool = True):
-    env = Environment(
+def html_to_md(
+    sec: b.SecSpec,
+    html_data_extractor: Callable[[str, str], Any],
+    md_data_writer: Callable[[Any, Template, str], None],
+    exceptions: Optional[Tuple[str]] = b.GE,
+    dry_run: bool = True
+):
+    template = Environment(
         loader=FileSystemLoader(osp.dirname(sec.src_template_path)),
         autoescape=False  # select_autoescape()
-    )
-    template = env.get_template(osp.basename(sec.src_template_path))
+    ).get_template(osp.basename(sec.src_template_path))
 
-    exceptions = b.compile_re_collection(exceptions)
+    exceptions = b.re_collection_compiler(exceptions)
     # data_dict = dict()
     for dirpath, dirnames, filenames in os.walk(sec.dst_path):
         for f in filenames:
             if f.endswith(".html"):
-                if b.search_re_collection(exceptions, f):
+                if b.re_collection_searcher(exceptions, f):
                     continue
-                extracted_data = sec.extract_data_from_html(dirpath, f)
+                extracted_data = html_data_extractor(dirpath, f)
                 if dry_run:
                     print(dirpath, f, f.replace(".html", ".md"), sep=" --- ")
                     print(extracted_data)
                     print("---")
                 else:
-                    sec.write_data_to_md(extracted_data, template,
-                                         osp.join(sec.src_path, f.replace(".html", ".md")))
+                    md_data_writer(extracted_data, template,
+                                   osp.join(sec.src_path, f.replace(".html", ".md")))
 
 
 # def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None,

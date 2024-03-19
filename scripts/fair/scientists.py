@@ -65,7 +65,7 @@ class ScientistsIndexRow:
     table: Optional[ScientistTable] = None
 
 
-def extract_table_from_md(loaded_file: fm.Post) -> ScientistTable:
+def md_table_extractor(loaded_file: fm.Post) -> ScientistTable:
     return ScientistTable(
         name=loaded_file["name"],
         born=loaded_file["born"],
@@ -78,7 +78,7 @@ def extract_table_from_md(loaded_file: fm.Post) -> ScientistTable:
     )
 
 
-def extract_data_from_md(dirpath, f) -> ScientistData:
+def md_data_extractor(dirpath, f) -> ScientistData:
     # f_text = b.read_file(osp.join(dirpath, f))
     # print(f_text)
     # fl = fm.loads(f_text)
@@ -88,40 +88,15 @@ def extract_data_from_md(dirpath, f) -> ScientistData:
         title=fl["title"],
         header=fl["header"],
         pic=fl["pic"],
-        table=extract_table_from_md(fl),
+        table=md_table_extractor(fl),
         bio=fl.content
     )
-
-
-# def extract_data(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> Dict[str, ScientistData]:
-#     exceptions = b.compile_re_collection(exceptions)
-#     sd_dict = dict()
-#     for dirpath, dirnames, filenames in os.walk(sec.src_path):
-#         for f in filenames:
-#             if f.endswith(".md"):
-#                 if b.search_re_collection(exceptions, f):
-#                     continue
-#                 sd_dict[f] = sec.extract_data_from_md(dirpath, f)
-#     return sd_dict
-
-
-# def write_data(sec: b.SecSpec, sd_dict: Dict[str, ScientistData]):
-#     env = Environment(
-#         loader=FileSystemLoader(osp.dirname(sec.dst_template_path)),
-#         autoescape=False  # select_autoescape()
-#     )
-#     template = env.get_template(osp.basename(sec.dst_template_path))
-#     for filename in sd_dict:
-#         # print(osp.join(sec.output_path, filename.replace(".md", ".html")),
-#         #       pd_dict[filename], sep="\n---\n", end="\n----------\n")
-#         with open(osp.join(sec.dst_path, filename.replace(".md", ".html")), mode="w") as f:
-#             f.write(template.render(sd_dict[filename].__dict__))
 
 
 # Index
 
 
-def extract_table_from_soup(soup: BeautifulSoup) -> ScientistTable:
+def soup_table_extractor(soup: BeautifulSoup) -> ScientistTable:
     rows = [row.text.strip("\n").replace("\n", ":").split(":")
             for row in soup.find_all("tr")]
     return ScientistTable(
@@ -136,7 +111,7 @@ def extract_table_from_soup(soup: BeautifulSoup) -> ScientistTable:
     )
 
 
-def extract_table_from_soup_no_escape(soup: BeautifulSoup) -> ScientistTable:
+def escapeless_soup_table_extractor(soup: BeautifulSoup) -> ScientistTable:
     rows = [str(row).strip("\n").replace("\n", ":").split(":")
             for row in soup.find_all("tr")]
     return ScientistTable(
@@ -151,51 +126,30 @@ def extract_table_from_soup_no_escape(soup: BeautifulSoup) -> ScientistTable:
     )
 
 
-def extract_index_row(dirpath: str, f: str) -> ScientistsIndexRow:
+def index_row_extractor(dirpath: str, f: str) -> ScientistsIndexRow:
     path = osp.join(dirpath, f)
-    f_text = b.read_file(path)
+    f_text = b.file_reader(path)
     soup = BeautifulSoup(f_text, "html.parser")
     return ScientistsIndexRow(
         filename=f,
         link=f,
         scientist_title=soup.title.text,
-        table=extract_table_from_soup(soup)
+        table=soup_table_extractor(soup)
     )
-
-
-# def extract_index(sec: b.SecSpec, exceptions: Tuple[str] = b.GE) -> tuple:
-#     exceptions = b.compile_re_collection(exceptions)
-#     index = []
-#     for dirpath, dirnames, filenames in os.walk(sec.dst_path):
-#         for f in filenames:
-#             if f.endswith(".html"):
-#                 if b.search_re_collection(exceptions, f):
-#                     continue
-#                 index.append(extract_index_row(dirpath, f))
-#     return tuple(index)
-
-
-# def write_index(sec: b.SecSpec, index: Collection[Any]):
-#     env = Environment(
-#         loader=FileSystemLoader(osp.dirname(sec.index_template_path)),
-#         autoescape=select_autoescape()
-#     )
-#     template = env.get_template(osp.basename(sec.index_template_path))
-#     with open(osp.join(sec.dst_path, sec.index_filename), mode="w") as f:
-#         f.write(template.render(title=sec.index_title, index=index))
 
 
 # Reverse
 
-def extract_data_from_html(dirpath: str, f: str, markdownify: bool = False) -> ScientistData:
+
+def html_data_extractor(dirpath: str, f: str, markdownify: bool = False) -> ScientistData:
     path = osp.join(dirpath, f)
-    f_text = b.read_file(path)
+    f_text = b.file_reader(path)
     soup = BeautifulSoup(f_text, "html.parser")
     return ScientistData(
         title=soup.title.text,
         header=soup.h1.text,  # TODO
         pic=soup.img["src"],
-        table=extract_table_from_soup_no_escape(soup),
+        table=escapeless_soup_table_extractor(soup),
         bio=str(
             soup.body.find("div", {"class": "fa-IR-explanation"})
         ).lstrip('<div class="fa-IR-explanation">').rstrip('</div>')

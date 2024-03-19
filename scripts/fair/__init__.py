@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Union
+from typing import Any, List, Union
 
 from jinja2 import Template
 
@@ -23,11 +23,37 @@ from . import parts as p
 from . import scientists as s
 
 
+# Remainant of 'generate_beautiful_qr_codes' (qr codes with src file headers
+# as each qr name, instead of qr file basename)
+# Could not merge this into the 'qr_pages_extractor', because the qr file
+# basename is still needed to link to the actual qr code png file
+def custom_qr_table_writer(sec: Any, table: List[List[str]], template: Template,
+                           path: str, mode: str = "w", title: str = "QR Codes"):
+    with open(path, mode=mode) as f:
+        f.write(
+            template.render(
+                title=title,
+                table=[
+                    table,
+                    [
+                        sec.data_extractor(
+                            dirpath=sec.src_path,
+                            f=p + ".md"
+                        ).header
+                        for p in table[0]
+                    ]
+                ],
+                enumerate=enumerate,
+                len=len
+            )
+        )
+
+
 # Reverse
 
 
-def write_data_to_md(pd: Union[s.ScientistData, p.PartData],
-                     template: Template, path: str, mode: str = "w"):
+def md_data_writer(pd: Union[s.ScientistData, p.PartData],
+                   template: Template, path: str, mode: str = "w"):
     with open(path, mode) as f:
         f.write(template.render(pd.__dict__))
 
@@ -40,19 +66,18 @@ parts = b.SecSpec(
     data_spec=p.PartData,
     dst_template_path="scripts/templates/fa_IR/parts/parts_template.html",
     src_template_path="scripts/templates/fa_IR/parts/parts_template.md",
-    data_extractor=p.extract_data_from_md,
-    # custom_data_writer=p.write_data,  ## To be removed
+    data_extractor=p.md_data_extractor,
     rules=b.Rules(move_selected_data=False),
     # extract_data_from_md=p.extract_data_from_md,
     # write_data_to_html=None,
     # extract_data_from_html=p.extract_data_from_html,
     # write_data_to_md=write_data_to_md,
     index_template_path="scripts/templates/fa_IR/parts/parts_index_template.html",
-    index_extractor=p.extract_index_row,
+    index_extractor=p.index_row_extractor,
     index_title="فهرست قطعات",
-    # custom_index_writer=p.write_index,
-    # qr_template_path="scripts/templates/fa_IR/parts/qr_pages_table_template.html",
+    # qrpages_template_path="scripts/templates/fa_IR/parts/qr_pages_table_template.html",
     qrpages_template_path="scripts/templates/fa_IR/parts/qr_pages_triangle_template.html",
+    custom_qr_table_writer=custom_qr_table_writer
 )
 scientists = b.SecSpec(
     name="fa_ir_scientists",
@@ -62,19 +87,18 @@ scientists = b.SecSpec(
     data_spec=s.ScientistData,
     dst_template_path="scripts/templates/fa_IR/scientists/scientists_template.html",
     src_template_path="scripts/templates/fa_IR/scientists/scientists_template.md",
-    data_extractor=s.extract_data_from_md,
-    # custom_data_writer=s.write_data,  ## To be removed
+    data_extractor=s.md_data_extractor,
     rules=b.Rules(move_selected_data=False),
     # extract_data_from_md=s.extract_data_from_md,
     # write_data_to_html=None,
     # extract_data_from_html=s.extract_data_from_html,
     # write_data_to_md=write_data_to_md,
     index_template_path="scripts/templates/fa_IR/scientists/scientists_index_template.html",
-    index_extractor=s.extract_index_row,
+    index_extractor=s.index_row_extractor,
     index_title="فهرست دانشمندان",
-    # custom_index_writer=s.write_index,
-    # qr_template_path="scripts/templates/fa_IR/scientists/qr_pages_table_template.html",
+    # qrpages_template_path="scripts/templates/fa_IR/scientists/qr_pages_table_template.html",
     qrpages_template_path="scripts/templates/fa_IR/scientists/qr_pages_triangle_template.html",
+    custom_qr_table_writer=custom_qr_table_writer
 )
 
 root = b.SecSpec(
