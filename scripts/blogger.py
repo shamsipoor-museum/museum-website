@@ -237,9 +237,8 @@ def qr_pages_extractor(sec: SecSpec, rows: int = 5, cols: int = 4,
                         table.append([])
                     if len(table[-1]) < cols:
                         qr_basename = osp.splitext(osp.basename(f))[0]
-                        # if not qr_name_attribute:
                         table[-1].append(qr_basename)
-                        # else:
+                        # if qr_name_attribute:
                         #     table[-1].append(
                         #         sec.data_extractor(
                         #             dirpath=sec.src_path,
@@ -255,15 +254,22 @@ def qr_table_writer(sec: Any, table: List[List[str]], template: Template,
         f.write(template.render(title=title, table=table, enumerate=enumerate, len=len))
 
 
-def qr_codes_generator(sec: SecSpec, exceptions: Iterable[str] = GE,
-                       qr_pages: bool = True, qr_pages_exceptions: Iterable[str] = GE,
-                       qr_pages_rows: int = 5, qr_pages_cols: int = 4,
-                       qr_pages_filename_fmt: str = "qr_codes_{i}.html",
-                       qr_pages_title_fmt: str = "QR Codes {i}", dry_run: bool = False):
+def qr_codes_generator(
+    sec: SecSpec,
+    qr_imgs: bool = True,
+    qr_imgs_exceptions: Iterable[str] = GE,
+    qr_pages: bool = True,
+    qr_pages_exceptions: Iterable[str] = GE,
+    qr_pages_rows: int = 5,
+    qr_pages_cols: int = 4,
+    qr_pages_filename_fmt: str = "qr_codes_{i}.html",
+    qr_pages_title_fmt: str = "QR Codes {i}",
+    dry_run: bool = False
+):
     if sec.custom_qr_generator:
         return sec.custom_qr_generator(
             sec,
-            exceptions,
+            qr_imgs_exceptions,
             qr_pages,
             qr_pages_exceptions,
             qr_pages_rows,
@@ -277,10 +283,11 @@ def qr_codes_generator(sec: SecSpec, exceptions: Iterable[str] = GE,
         autoescape=False  # select_autoescape()  # We want to preserve html tags (for specifying fonts, etc)
     ).get_template(osp.split(sec.qrpages_template_path)[1])
 
-    if sec.custom_qr_img_generator:
-        sec.custom_qr_img_generator(sec, exceptions, dry_run)
-    else:
-        qr_imgs_generator(sec, exceptions, dry_run)
+    if qr_imgs:
+        if sec.custom_qr_img_generator:
+            sec.custom_qr_img_generator(sec, qr_imgs_exceptions, dry_run)
+        else:
+            qr_imgs_generator(sec, qr_imgs_exceptions, dry_run)
     if qr_pages:
         if sec.custom_qrpages_generator:
             pages = sec.custom_qrpages_generator(
@@ -325,7 +332,7 @@ def qr_codes_generator(sec: SecSpec, exceptions: Iterable[str] = GE,
 
 def generator(sec: SecSpec, content_exceptions: Iterable[str] = GE,
               index: bool = True, index_exceptions: Iterable[str] = GE,
-              qr: bool = True, qr_exceptions: Iterable[str] = GE,
+              qr: bool = True, qr_imgs: bool = True, qr_imgs_exceptions: Iterable[str] = GE,
               qr_pages: bool = True, qr_pages_exceptions: Iterable[str] = GE,
               qr_pages_rows: int = 5, qr_pages_cols: int = 4,
               qr_pages_filename_fmt: str = "qr_codes_{i}.html",
@@ -336,14 +343,14 @@ def generator(sec: SecSpec, content_exceptions: Iterable[str] = GE,
         if index:
             index_generator(sec, exceptions=index_exceptions)
         if qr:
-            qr_codes_generator(sec, qr_exceptions, qr_pages, qr_pages_exceptions,
-                               qr_pages_rows, qr_pages_cols,
+            qr_codes_generator(sec, qr_imgs, qr_imgs_exceptions, qr_pages,
+                               qr_pages_exceptions, qr_pages_rows, qr_pages_cols,
                                qr_pages_filename_fmt, qr_pages_title_fmt)
     for s in sec.sub_specs:
         if args_pass_through:
             generator(s, content_exceptions=content_exceptions,
                       index=index, index_exceptions=index_exceptions,
-                      qr=qr, qr_exceptions=qr_exceptions,
+                      qr=qr, qr_imgs_exceptions=qr_imgs_exceptions,
                       qr_pages=qr_pages, qr_pages_exceptions=qr_pages_exceptions,
                       qr_pages_rows=qr_pages_rows, qr_pages_cols=qr_pages_cols,
                       qr_pages_filename_fmt=qr_pages_filename_fmt,

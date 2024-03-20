@@ -46,18 +46,12 @@ def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
             r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md",
             r"miller_big_rf_trans\.md"
         ),
-        qr_pages=True,
-        qr_exceptions=b.GE,
-        qr_pages_exceptions=b.GE,
         qr_pages_rows=1,
         qr_pages_cols=4
     )
 
     b.generator(
         fair.scientists,
-        qr_pages=True,
-        qr_exceptions=b.GE,
-        qr_pages_exceptions=b.GE,
         qr_pages_rows=1,
         qr_pages_cols=4
     )

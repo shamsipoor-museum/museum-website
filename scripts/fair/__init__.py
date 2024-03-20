@@ -27,7 +27,7 @@ from . import scientists as s
 # as each qr name, instead of qr file basename)
 # Could not merge this into the 'qr_pages_extractor', because the qr file
 # basename is still needed to link to the actual qr code png file
-def custom_qr_table_writer(sec: Any, table: List[List[str]], template: Template,
+def custom_qr_table_writer(sec: b.SecSpec, table: List[List[str]], template: Template,
                            path: str, mode: str = "w", title: str = "QR Codes"):
     with open(path, mode=mode) as f:
         f.write(
