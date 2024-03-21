@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 <span class="english-text">Leader LCR-745</span>
 یک ابزار رومیزی

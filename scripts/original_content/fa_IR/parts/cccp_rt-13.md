@@ -9,8 +9,6 @@ category: لامپ‌های خلأ
 manufacturer_name: <span class="english-text">CCCP</span>-شوروی
 manufacturer_country: روسیه
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 به زبان ساده، لامپ خلأ افزاره‌ای است که می‌تواند جریان الکتریکی را تقویت، قطع
 و وصل یا یکسوسازی

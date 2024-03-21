@@ -9,8 +9,6 @@ category: لامپ‌های خلأ
 manufacturer_name: <span class="english-text">RCA</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 تیراترون مینیاتوری نوعی از لوله تیراترون است که در مقایسه با تیراترون‌های
 استاندارد از نظر اندازه کوچکتر طراحی شده است. تیراترون‌ها لوله‌های پر از گاز

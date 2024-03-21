@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Pintek</span>
 manufacturer_country: چین
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 اسیلوسکوپ آنالوگ
 <span class="english-text">Pintek PS-350</span>

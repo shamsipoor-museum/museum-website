@@ -9,8 +9,6 @@ category: لامپ‌های خلأ
 manufacturer_name: <span class="english-text">RCA</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 پنتود قدرت پرتو نوعی لوله یا شیر خلأ است که ویژگی‌های پنتود و تترود پرتو را
 برای ارائه عملکرد بهبودیافته در کاربردهای تقویت‌کننده قدرت ترکیب می‌کند.

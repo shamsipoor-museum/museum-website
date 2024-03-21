@@ -9,11 +9,9 @@ category: دستگاه‌های پخش
 manufacturer_name: Panasonic
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 دستگاه
-
+<span class="english-text">SD350</span>
 پخش کننده ویدویی قدیمی است که در سال 2006 توسط شرکت پاناسونیک در کشور ژاپن
 ساخته شده است و فرمت‌های زیر را پشتیبانی می‌کنند:
 </p>

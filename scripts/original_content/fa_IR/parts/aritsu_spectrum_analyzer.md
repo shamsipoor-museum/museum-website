@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Aritsu</span>
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 آنالایزر طیف
 <span class="english-text">Anritsu MS710C</span>

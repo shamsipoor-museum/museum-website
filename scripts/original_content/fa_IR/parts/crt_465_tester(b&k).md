@@ -9,8 +9,6 @@ category: تستر قطعات
 manufacturer_name: <span class="english-text">B&amp;K</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 تستر لوله کاتدی که به عنوان تستر لوله یا تستر شیر نیز شناخته می‌شود، دستگاهی
 است که برای آزمایش و ارزیابی عملکرد لوله‌های خلأ (لوله‌های الکترونی) استفاده

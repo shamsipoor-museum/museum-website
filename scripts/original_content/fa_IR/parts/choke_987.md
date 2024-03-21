@@ -9,8 +9,6 @@ category: قطعات الکترونیکی و صنعتی
 manufacturer_name: <span class="english-text">Miller (Miller Quality Product)</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 به طور کلی، چُک فیلتر خط نوعی سلف است که در مدارهای الکترونیکی برای
 <span class="marked">فیلتر کردن نویز</span>

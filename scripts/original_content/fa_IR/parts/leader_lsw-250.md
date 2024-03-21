@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 این دستگاه، مدل
 <span class="english-text">LSW-250</span>

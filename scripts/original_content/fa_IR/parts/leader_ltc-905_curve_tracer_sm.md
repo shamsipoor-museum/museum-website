@@ -9,8 +9,6 @@ category: ردیاب منحنی
 manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 <span class="english-text">Leader LTC-905 Curve Tracer SM</span>
 یک مدل خاص از ردیاب منحنی است که توسط

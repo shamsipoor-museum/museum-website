@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Cornell</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 جعبه خازن کارنل آموزشی وسیله‌ای آموزشی است که برای تجربه و آموزش درباره خواص و
 کاربردهای خازن‌ها استفاده می‌شود. این جعبه شامل یک مجموعه از خازن‌های متفاوت

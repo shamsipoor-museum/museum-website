@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Iwatsu</span>
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 این اطلاعات مربوط به دستگاه تولید کننده سیگنال
 <span class="english-text">(Function Generator)</span>

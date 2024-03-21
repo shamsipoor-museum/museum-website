@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Tektronix</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 <span class="english-text">Tektronix 7623A</span>
 یک اسیلوسکوپ آنالوگ دو کاناله

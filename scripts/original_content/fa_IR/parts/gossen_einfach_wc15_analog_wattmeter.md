@@ -9,8 +9,6 @@ category: خدمات یا تجهیزات آزمایشگاه
 manufacturer_name: Gossen
 manufacturer_country: آلمان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 وات‌متر
 <span class="english-text">Einfach WC15</span>

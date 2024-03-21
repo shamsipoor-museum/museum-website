@@ -9,8 +9,6 @@ category: ژنراتورها
 manufacturer_name: Leader
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 دستگاه
 <span class="english-text">LCG-398B</span>

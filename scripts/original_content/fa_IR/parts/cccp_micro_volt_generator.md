@@ -9,8 +9,6 @@ category: ژنراتور
 manufacturer_name: <span class="english-text">CCCP</span>-شوروی
 manufacturer_country: روسیه
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 ژنراتور میکرو ولتاژ که به عنوان ژنراتور میکروولت نیز شناخته می‌شود، دستگاه یا
 مداری است که ولتاژهای بسیار کمی یا اختلاف پتانسیل الکتریکی تولید می‌کند. برای

@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Philips</span>
 manufacturer_country: هلند
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 مولد پالس
 <span class="english-text">Philips PM5705</span>

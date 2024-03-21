@@ -9,8 +9,6 @@ category: بردهای آموزشی
 manufacturer_name: Labvolt
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 کیت ریزپردازنده
 <span class="english-text">Z80</span>

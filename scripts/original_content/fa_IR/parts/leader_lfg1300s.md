@@ -9,8 +9,6 @@ category: تجهیزات الکترونیکی
 manufacturer_name: <span class="english-text">Leader</span>
 manufacturer_country: ژاپن
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 <span class="english-text">LFG1300S</span>
 یک منبع سیگنال همه‌منظوره با طیف وسیعی از تحقیقات، طراحی و کاربردهای خدماتی

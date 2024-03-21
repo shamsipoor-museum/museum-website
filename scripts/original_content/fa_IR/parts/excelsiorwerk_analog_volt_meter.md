@@ -9,8 +9,6 @@ category: خدمات یا تجهیزات آزمایشگاه
 manufacturer_name: Excelsiorwerk
 manufacturer_country: آلمان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 مجموعه‌ای از ولت‌مترهای منسوخ (سنج وات) که ابزاری برای اندازه‌گیری توان فعال
 الکتریکی هستند و در جعبه‌های چوبی یا پلاستیکی عرضه می‌شوند.

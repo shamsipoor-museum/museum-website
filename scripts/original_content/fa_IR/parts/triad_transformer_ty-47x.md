@@ -9,8 +9,6 @@ category: قطعات الکترونیکی و صنعتی
 manufacturer_name: <span class="english-text">Triad</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 ترانسفورماتورهای صوتی
 <span class="english-text">Triad</span>

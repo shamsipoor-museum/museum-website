@@ -9,8 +9,6 @@ category: پروژکتور
 manufacturer_name: <span class="english-text">Kodak</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 پروژکتور اسلاید کداک مدل
 <span class="english-text">AF-2K</span>

@@ -9,8 +9,6 @@ category: خدمات یا تجهیزات آزمایشگاه
 manufacturer_name: Excelsiorwerk
 manufacturer_country: آلمان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 میلی‌آمپرمتر عقربه‌ای ابزاری است که مقادیر را با استفاده از یک مقیاس مستمر که
 هر مقدار در آن می‌تواند مشخص شود، نشان می‌دهد. اغلب اوقات نشانگری خاص برای

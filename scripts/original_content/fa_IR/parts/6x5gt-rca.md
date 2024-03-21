@@ -9,8 +9,6 @@ category: لامپ‌های خلأ
 manufacturer_name: <span class="english-text">RCA</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 لوله خلأ که به عنوان شیر ترمیونیک نیز شناخته می‌شود، یک دستگاه الکترونیکی است
 که جریان الکتریکی را از طریق خلأ در محفظه شیشه‌ای یا فلزی مهروموم‌شده خود

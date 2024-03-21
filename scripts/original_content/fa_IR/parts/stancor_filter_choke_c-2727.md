@@ -9,8 +9,6 @@ category: قطعات الکترونیکیو صنعتی
 manufacturer_name: <span class="english-text">Stancor</span>
 manufacturer_country: آمریکا
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 <span class="english-text">Stancor C-2727</span>
 یک مدل خاص از فیلتر چوک تولید شده توسط برند
