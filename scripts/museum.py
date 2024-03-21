@@ -41,11 +41,6 @@ document_root = b.SecSpec(
 def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
     b.generator(
         fair.parts,
-        content_exceptions=(
-            r"index\.html", r"qr_codes_.+\.html", r"choke_987\.md",
-            r"choke_7825-5\.md", r"crt_465_tester\(b&k\)\.md",
-            r"miller_big_rf_trans\.md"
-        ),
         qr_pages_rows=1,
         qr_pages_cols=4
     )
