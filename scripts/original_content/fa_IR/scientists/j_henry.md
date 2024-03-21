@@ -12,8 +12,6 @@ known_for: القای الکترومغناطیسی
 awards: "-"
 tags: مرده، فیزیکدان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 جوزف هنری (به انگلیسی:
 <span class="english-text">Joseph Henry</span>)

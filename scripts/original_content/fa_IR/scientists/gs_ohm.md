@@ -12,8 +12,6 @@ known_for: قانون اهم، قانون فاز اهم، قانون صوتی ا
 awards: مدال کاپلی
 tags: مرده، فیزیکدان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 گئورگ زیمون اُهم (به آلمانی:
 <span class="english-text">Georg Simon Ohm</span>)

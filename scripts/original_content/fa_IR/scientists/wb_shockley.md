@@ -12,8 +12,6 @@ known_for: ترانزیستور، دیود شاکلی
 awards: نوبل فیزیک، کامستاک فیزیک، مدال افتخار انجمن مهندسان برق و الکترونیک (<span class="english-text">IEEE</span>)
 tags: مرده، فیزیکدان، مخترع، نیمه‌رسانا‌ها، برنده نوبل
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 ویلیام برادفورد شاکلی (به انگلیسی:
 <span class="english-text">William Bradford Shockley Jr</span>)

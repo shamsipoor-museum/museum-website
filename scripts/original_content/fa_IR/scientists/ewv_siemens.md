@@ -12,8 +12,6 @@ known_for: واحد اندازه‌گیری رسانایی الکتریکی، ب
 awards: "-"
 tags: مرده، فیزیکدان، ریاضی‌دان، کاشف
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 ارنست ورنر فون زیمنس (به آلمانی:
 <span class="english-text">Ernst Werner von Siemens</span>)

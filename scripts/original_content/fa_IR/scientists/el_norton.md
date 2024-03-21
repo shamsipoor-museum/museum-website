@@ -12,8 +12,6 @@ known_for: نظریه نورتون
 awards: "-"
 tags: مرده، فیزیکدان، ریاضی‌دان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 ادوارد لوری نورتون (به انگلیسی:
 <span class="english-text">Edward Lawry Norton</span>)

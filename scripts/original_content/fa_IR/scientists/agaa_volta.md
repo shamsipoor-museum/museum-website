@@ -12,8 +12,6 @@ known_for: اختراع باتری، الکتروفور، متان، ولت، و
 awards: مدال کاپلی، لژیون دونور
 tags: مرده، فیزیکدان، شیمی‌دان، مخترع
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 آلساندرو جوسپه آنتونیو آناستاسیو ولتا (به ایتالیایی:
 <span class="english-text">Alessandro Giuseppe Antonio Anastasio Volta</span>)

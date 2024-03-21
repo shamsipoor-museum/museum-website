@@ -12,8 +12,6 @@ known_for: نظریه تونن
 awards: "-"
 tags: مرده، فیزیکدان، ریاضی‌دان، کاشف
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 لئون چارلز تونن (به فرانسوی:
 <span class="english-text">Léon Charles Thévenin</span>)

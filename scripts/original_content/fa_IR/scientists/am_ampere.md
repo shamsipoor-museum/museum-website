@@ -12,8 +12,6 @@ known_for: قانون آمپر، قانون نیروی آمپر، قانون د�
 awards: "-"
 tags: مرده، فیزیکدان، ریاضی‌دان، کاشف
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 آندره-ماری آمپر (به فرانسوی:
 <span class="english-text">André-Marie Ampère</span>)

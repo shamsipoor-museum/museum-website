@@ -12,8 +12,6 @@ known_for: القای الکترومغناطیسی
 awards: "-"
 tags: مرده، فیزیکدان
 ---
-
-<h2 class="fa-IR-explanation-header">توضیحات</h2>
 <p>
 گوستاو روبِرت کیرشهُف (به آلمانی:
 <span class="english-text">Gustav Robert Kirchhoff</span>)
