@@ -18,6 +18,7 @@
     <th><b class="table-pseudo-heading">نام</b></th>
     <th><b class="table-pseudo-heading">زاده</b></th>
     <th><b class="table-pseudo-heading">درگذشت</b></th>
+    <th><b class="table-pseudo-heading">جنسیت</b></th>
     <th><b class="table-pseudo-heading">ملیت</b></th>
     <th><b class="table-pseudo-heading">محل تحصیل</b></th>
     <th><b class="table-pseudo-heading">شناخته‌شده برای</b></th>
@@ -31,6 +32,7 @@
     <td><a href="{{scientist.link}}">{{scientist.table.name}}</a></td>
     <td><a href="{{scientist.link}}">{{scientist.table.born}}</a></td>
     <td><a href="{{scientist.link}}">{{scientist.table.died}}</a></td>
+    <td><a href="{{scientist.link}}">{{"مرد" if scientist.table.gender else "زن"}}</a></td>
     <td><a href="{{scientist.link}}">{{scientist.table.nationality}}</a></td>
     <td><a href="{{scientist.link}}">{{scientist.table.alma_mater}}</a></td>
     <td><a href="{{scientist.link}}">{{scientist.table.known_for}}</a></td>

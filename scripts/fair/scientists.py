@@ -14,11 +14,10 @@
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
 from os import path as osp
-from typing import Any, Collection, Optional, Union, Type, Callable, Dict
+from typing import Collection, Optional, Union
 
 from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
-from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 import frontmatter as fm
 
 import blogger as b
@@ -79,11 +78,7 @@ def md_table_extractor(loaded_file: fm.Post) -> ScientistTable:
 
 
 def md_data_extractor(dirpath, f) -> ScientistData:
-    # f_text = b.read_file(osp.join(dirpath, f))
-    # print(f_text)
-    # fl = fm.loads(f_text)
     fl = fm.load(osp.join(dirpath, f))
-    # print("[debug]", fl.__dict__)
     return ScientistData(
         title=fl["title"],
         header=fl["header"],
@@ -103,11 +98,12 @@ def soup_table_extractor(soup: BeautifulSoup) -> ScientistTable:
         name=rows[0][1],
         born=rows[0][3],
         died=rows[1][1],
-        nationality=rows[1][3],
-        alma_mater=rows[2][1],
-        known_for=rows[2][3],
-        awards=rows[3][1],
-        tags=rows[3][3]
+        gender=True if rows[1][3] == "مرد" else False,
+        nationality=rows[2][1],
+        alma_mater=rows[2][3],
+        known_for=rows[3][1],
+        awards=rows[3][3],
+        tags=rows[4][1]
     )
 
 
@@ -118,11 +114,12 @@ def escapeless_soup_table_extractor(soup: BeautifulSoup) -> ScientistTable:
         name=rows[0][2][9:-5],  # removing "</b><br/>" from start and "</td>" from end
         born=rows[0][4][9:-5],
         died=rows[1][2][9:-5],
-        nationality=rows[1][4][9:-5],
-        alma_mater=rows[2][2][9:-5],
-        known_for=rows[2][4][9:-5],
-        awards=rows[3][2][9:-5],
-        tags=rows[3][4][9:-5]
+        gender=True if rows[1][4][9:-5] == "مرد" else False,
+        nationality=rows[2][2][9:-5],
+        alma_mater=rows[2][4][9:-5],
+        known_for=rows[3][2][9:-5],
+        awards=rows[3][4][9:-5],
+        tags=rows[4][2][9:-5]
     )
 
 
