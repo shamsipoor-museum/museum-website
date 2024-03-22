@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-from typing import Any, List, Union
+from typing import List, Union
 
 from jinja2 import Template
 

@@ -6,11 +6,12 @@ pic: pics/gs_ohm.jpg
 name: گئورگ زیمون اُهم (<span class="english-text">Georg Simon Ohm</span>)
 born: 16 مارس 1789، ارلانگن، آلمان
 died: 6 ژوئیه 1854 (65 سال)، مونیخ، آلمان
+gender: true
 nationality: آلمانی
 alma_mater: دانشگاه ارلانگن
 known_for: قانون اهم، قانون فاز اهم، قانون صوتی اهم
 awards: مدال کاپلی
-tags: مرده، فیزیکدان
+tags: فیزیکدان
 ---
 <p>
 گئورگ زیمون اُهم (به آلمانی:

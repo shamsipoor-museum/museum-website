@@ -13,18 +13,6 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-import sys
-import os
-from os import path as osp
-from pprint import pprint
-from datetime import date
-from typing import Optional, Union, Type, Callable, Tuple, Dict
-
-from attrs import asdict, define, frozen, make_class, Factory
-from bs4 import BeautifulSoup
-from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
-import frontmatter as fm
-
 import blogger as b
 import global_values as gv
 import fair
@@ -38,7 +26,7 @@ document_root = b.SecSpec(
 )
 
 
-def main(src_dir: Optional[str] = None, dst_dir: Optional[str] = None):
+def main():
     b.generator(
         fair.parts,
         qr_pages_rows=1,

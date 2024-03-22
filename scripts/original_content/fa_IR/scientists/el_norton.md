@@ -6,11 +6,14 @@ pic: pics/el_norton.jpg
 name: ادوارد لوری نورتون (<span class="english-text">Edward Lawry Norton</span>)
 born: 28 ژولای 1898، راکلند، مین، ایالات متحده آمریکا
 died: 28 ژانویه 1983 (84 سال)، چتم، نیوجرسی، ایالات متحده آمریکا
+gender: true
 nationality: آمریکایی
 alma_mater: انیسیتوی فناوری ماساچوست، دانشگاه کلمبیا
 known_for: نظریه نورتون
-awards: "-"
-tags: مرده، فیزیکدان، ریاضی‌دان
+awards: null
+tags:
+  - فیزیکدان
+  - ریاضی‌دان
 ---
 <p>
 ادوارد لوری نورتون (به انگلیسی:

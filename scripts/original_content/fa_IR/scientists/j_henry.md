@@ -6,11 +6,12 @@ pic: pics/j_henry.jpg
 name: جوزف هنری (<span class="english-text">Joseph Henry</span>)
 born: 17 دسامبر 1797، آلبانی، نیویورک، ایالات متحده آمریکا
 died: 13 مه 1878 (86 سال)، واشینگتن دی سی، ایالات متحده آمریکا
-nationality: آمریکا
-alma_mater: "-"
+gender: true
+nationality: آمریکایی
+alma_mater: null
 known_for: القای الکترومغناطیسی
-awards: "-"
-tags: مرده، فیزیکدان
+awards: null
+tags: فیزیکدان
 ---
 <p>
 جوزف هنری (به انگلیسی:

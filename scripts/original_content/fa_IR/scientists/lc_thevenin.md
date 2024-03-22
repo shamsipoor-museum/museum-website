@@ -6,11 +6,15 @@ pic: pics/lc_thevenin.jpg
 name: لئون چارلز تونن (<span class="english-text">Léon Charles Thévenin</span>)
 born: 30 مارس 1857، مو، فرانسه
 died: 21 سپتامبر 1926 (69 سال)، پاریس، فرانسه
+gender: true
 nationality: فرانسوی
-alma_mater: "-"
+alma_mater: null
 known_for: نظریه تونن
-awards: "-"
-tags: مرده، فیزیکدان، ریاضی‌دان، کاشف
+awards: null
+tags:
+  - فیزیکدان
+  - ریاضی‌دان
+  - کاشف
 ---
 <p>
 لئون چارلز تونن (به فرانسوی:

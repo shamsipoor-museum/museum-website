@@ -6,11 +6,12 @@ pic: pics/gr_kirchhoff.jpg
 name: گوستاو روبِرت کیرشهُف (<span class="english-text">Gustav Robert Kirchhoff</span>)
 born: 12 مارس 1824، کونیگزبرگ، پروس شرقی
 died: 17 اکتبر 1887 (86 سال)، برلین، آلمان
+gender: true
 nationality: آلمانی
-alma_mater: "-"
+alma_mater: null
 known_for: القای الکترومغناطیسی
-awards: "-"
-tags: مرده، فیزیکدان
+awards: null
+tags: فیزیکدان
 ---
 <p>
 گوستاو روبِرت کیرشهُف (به آلمانی:

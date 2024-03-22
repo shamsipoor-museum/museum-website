@@ -6,11 +6,15 @@ pic: pics/ewv_siemens.jpg
 name: ارنست ورنر فون زیمنس (<span class="english-text">Ernst Werner von Siemens</span>)
 born: 13 دسامبر 1816، گردن (نیدرزاکسن)، پادشاهی هانوور، کنفدراسیون آلمان
 died: 6 دسامبر 1892 (75 سال)، برلین، امپراتوری آلمان
+gender: true
 nationality: آلمانی
-alma_mater: "-"
+alma_mater: null
 known_for: واحد اندازه‌گیری رسانایی الکتریکی، بنیان‌گذاری شرکت زیمنس
-awards: "-"
-tags: مرده، فیزیکدان، ریاضی‌دان، کاشف
+awards: null
+tags:
+  - فیزیکدان
+  - ریاضی‌دان
+  - کاشف
 ---
 <p>
 ارنست ورنر فون زیمنس (به آلمانی:

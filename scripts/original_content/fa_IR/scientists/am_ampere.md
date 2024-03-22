@@ -6,11 +6,18 @@ pic: pics/am_ampere.jpg
 name: آندره-ماری آمپر (<span class="english-text">André-Marie Ampère</span>)
 born: 20 ژانویه 1775، لیون، پادشاهی فرانسه
 died: 10 ژوئن 1836 (61 سال)، مارسی، سلطنت ژوئیه فرانسه
+gender: true
 nationality: فرانسوی
-alma_mater: "-"
-known_for: قانون آمپر، قانون نیروی آمپر، قانون دست راست
-awards: "-"
-tags: مرده، فیزیکدان، ریاضی‌دان، کاشف
+alma_mater: null
+known_for:
+  - قانون آمپر
+  - قانون نیروی آمپر
+  - قانون دست راست
+awards: null
+tags:
+  - فیزیکدان
+  - ریاضی‌دان
+  - کاشف
 ---
 <p>
 آندره-ماری آمپر (به فرانسوی:

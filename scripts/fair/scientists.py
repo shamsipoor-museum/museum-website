@@ -13,10 +13,8 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-import os
 from os import path as osp
-# from datetime import date
-from typing import Any, Collection, Optional, Union, Type, Callable, Tuple, Dict
+from typing import Any, Collection, Optional, Union, Type, Callable, Dict
 
 from attrs import asdict, define, frozen, make_class, Factory
 from bs4 import BeautifulSoup
@@ -37,11 +35,12 @@ class ScientistTable:
     # death_date: Optional[date] = None
     # death_location: Optional[str] = None
     died: Optional[str] = None
-    nationality: Optional[Union[str, tuple]] = None
-    alma_mater: Optional[Union[str, tuple]] = None
-    known_for: Optional[Union[str, tuple]] = None
-    awards: Optional[Union[str, tuple]] = None
-    tags: Optional[tuple] = None
+    gender: Optional[bool] = None
+    nationality: Optional[Union[str, Collection[str]]] = None  # They can have multiple citizenships
+    alma_mater: Optional[Union[str, Collection[str]]] = None
+    known_for: Optional[Union[str, Collection[str]]] = None
+    awards: Optional[Union[str, Collection[str]]] = None
+    tags: Optional[Union[str, Collection[str]]] = None
 
 
 # (slots=False) is there because we have to have access to __dict__, and
@@ -52,8 +51,8 @@ class ScientistData:
     header: Optional[str] = None
     pic: Optional[str] = None
     table: Optional[ScientistTable] = None
-    bio_summary: Optional[Union[str, Tuple[str]]] = None
-    bio: Optional[Union[str, Tuple[str]]] = None
+    bio_summary: Optional[Union[str, Collection[str]]] = None
+    bio: Optional[Union[str, Collection[str]]] = None
 
 
 @frozen
@@ -68,13 +67,14 @@ class ScientistsIndexRow:
 def md_table_extractor(loaded_file: fm.Post) -> ScientistTable:
     return ScientistTable(
         name=loaded_file["name"],
-        born=loaded_file["born"],
-        died=loaded_file["died"],
-        nationality=loaded_file["nationality"],
-        alma_mater=loaded_file["alma_mater"],
-        known_for=loaded_file["known_for"],
-        awards=loaded_file["awards"],
-        tags=loaded_file["tags"]
+        born=c.persian_stringifier(loaded_file["born"]),
+        died=c.persian_stringifier(loaded_file["died"]),
+        gender=loaded_file["gender"],
+        nationality=c.persian_stringifier(loaded_file["nationality"]),
+        alma_mater=c.persian_stringifier(loaded_file["alma_mater"]),
+        known_for=c.persian_stringifier(loaded_file["known_for"]),
+        awards=c.persian_stringifier(loaded_file["awards"]),
+        tags=c.persian_stringifier(loaded_file["tags"])
     )
 
 
