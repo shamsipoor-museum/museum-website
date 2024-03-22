@@ -22,7 +22,6 @@ from typing import Collection, Optional, Union, Type, Callable, Iterable, List, 
 
 # from pprint import pprint
 from attrs import asdict, define, frozen, make_class, Factory
-from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 import qrcode as qr
 
