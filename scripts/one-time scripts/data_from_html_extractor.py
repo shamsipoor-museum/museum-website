@@ -32,7 +32,7 @@ def html_to_md(
     sec: b.SecSpec,
     html_data_extractor: Callable[[str, str], Any],
     md_data_writer: Callable[[Any, Template, str], None],
-    exceptions: Optional[Tuple[str]] = b.GE,
+    exceptions: Optional[Tuple[str]] = b.CE,
     dry_run: bool = True
 ):
     template = Environment(

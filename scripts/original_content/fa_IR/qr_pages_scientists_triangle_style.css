@@ -1,0 +1,115 @@
+.page-container {
+    border: 1px solid gray;
+    overflow: auto;
+    min-width: 29.7cm;
+    max-width: 29.7cm;
+    min-height: 21cm;
+    max-height: 21cm;
+}
+
+.persian-heading {
+    /* font-size: 1.7vmax; */
+    font-family: BNazanin;
+    font-display: swap;
+}
+
+table {
+    border-collapse: collapse;
+    /* width: 100%; */
+    position: relative;
+    top: 0.75cm;
+    left: 0.75cm;
+}
+  
+td, th {
+    border: 1px solid gray;
+    text-align: center;
+    /* padding-left: 0.15625cm;
+    padding-right: 0.15625cm; */
+    /* padding: 1%; */
+    padding: 0;
+    /* width: 25%; */
+    min-width: 6cm;
+    max-width: 6cm;
+    width: 6cm;
+    min-height: 6cm;
+    max-height: 6cm;
+    height: 6cm;
+    position: relative;
+}
+
+/* td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6cm;
+    height: 6cm;
+} */
+
+/* tr:nth-child(even) {
+    background-color: #fff2cc;
+} */
+
+/* .no-padding {
+    padding: 0;
+} */
+
+.placeholder {
+    min-width: 6cm;
+    max-width: 6cm;
+    width: 6cm;
+    min-height: 6cm;
+    max-height: 6cm;
+    height: 6cm;
+}
+
+.img-container {
+    min-width: 6cm;
+    max-width: 6cm;
+    width: 6cm;
+    min-height: 6cm;
+    max-height: 6cm;
+    height: 6cm;
+}
+
+.qr-code-img {
+    max-width: 4cm;
+    max-height: 4cm;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-right-width: 1px;
+    border-right-style: solid;
+    /* margin: 1cm; */
+    position: relative;
+    top: 1cm;
+}
+
+.qr-code-title {
+    /* max-width: 3.6875cm;
+    max-height: 0.7cm; */
+    /* padding: 1%; */
+    /* margin: 1%; */
+    position: absolute;
+    /* top: -0.5cm; */
+    top: 5.3cm;
+    left: 0; 
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    font-family: BNazanin;
+    font-size: 18px;
+    text-align: center;
+    font-display: swap;
+}
+
+.work-of {
+    margin: 3.2%;
+     text-align: center;
+     font-family: BNazanin;
+     font-size: 22px
+}

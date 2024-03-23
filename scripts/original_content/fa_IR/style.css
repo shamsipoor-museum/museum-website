@@ -1,0 +1,87 @@
+body {
+    margin: 5%;
+    margin-right: 8%;
+    margin-left: 8%;
+}
+
+.persian-text {
+    font-size: 1.7vmax;
+    font-family: BNazanin;
+    font-display: swap;
+}
+
+.english-text {
+    font-size: 1.5vmax;
+    font-family: 'Times New Roman', Times, serif;
+    font-display: swap;
+}
+
+.part-heading {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-display: swap;
+}
+
+.persian-heading {
+    font-family: BTitr;
+    font-display: swap;
+}
+
+.part-text-heading {
+    min-height: 4vh;
+    font-size: 3.5vmax;  /* a magic number for heading */
+}
+
+.part-pic {
+    border-radius: 30px;
+    /* min-height: 36vh; */  /* experimental code added here to comply with
+                                the original master PDF (choke_987) but it
+                                makes wide pictures to overflow horizontally,
+                                specially on mobile phones */
+    max-width: 100%;  /* this code fixes the horizontal overflow problem */
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-height: 20.03vh;  /* based on original pdf */
+    font-size: 1.7vmax;  /* a magic number based on guess work; we have no css
+                            only solution other than this */
+    margin-top: 2%;
+    margin-bottom: 2%;
+    font-family: BNazanin;
+    font-display: swap;
+}
+  
+td, th {
+    border: 1px solid #ffd966;
+    padding: 8px;
+    width: 50%;
+}
+
+tr:nth-child(even) {
+    background-color: #fff2cc;
+}
+
+.table-pseudo-heading {
+    font-family: BTitr;
+    font-display: swap;
+}
+
+/* tr {
+    border: 3px solid black;
+    border-collapse: collapse;
+} */
+
+.fa-IR-explanation {
+    font-family: BNazanin;
+    font-size: 1.7vmax;  /* same magic number from table */
+    text-align: justify;
+    font-display: swap;
+}
+
+.fa-IR-explanation-header{
+    font-family: BTitr;
+    font-size: 2.1vmax;  /* just a magic number bigger than normal explanation text and smaller than part-text-heading */
+    font-display: swap;
+}

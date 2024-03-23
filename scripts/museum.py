@@ -22,21 +22,26 @@ document_root = b.SecSpec(
     name="root",
     dst_path="docs",
     url_prefix=gv.PREFIX,
-    sub_specs=[fair.root]
+    src_path="scripts/original_content",
+    sub_secs=[fair.root],
+    generate_index=False,
+    generate_qr=False,
+    generate_qrpages=False,
+    rules=b.Rules(
+        nuke_dst_path=True,
+        copy_selected_data=True,
+        recursive_convert=False,
+        recursive_copy=False,
+    )
 )
 
 
 def main():
     b.generator(
-        fair.parts,
+        document_root,
         qr_pages_rows=1,
-        qr_pages_cols=4
-    )
-
-    b.generator(
-        fair.scientists,
-        qr_pages_rows=1,
-        qr_pages_cols=4
+        qr_pages_cols=4,
+        verbose=True
     )
 
 

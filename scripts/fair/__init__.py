@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
+import os
+from os import path as osp
 from typing import List, Union
 
 from jinja2 import Template
@@ -67,7 +69,11 @@ parts = b.SecSpec(
     dst_template_path="scripts/templates/fa_IR/parts/parts_template.html",
     src_template_path="scripts/templates/fa_IR/parts/parts_template.md",
     data_extractor=p.md_data_extractor,
-    # rules=b.Rules(move_selected_data=False),
+    rules=b.Rules(
+        copy_selected_data=True,
+        recursive_copy=True,
+        overwrite_when_copying=True,
+    ),
     index_template_path="scripts/templates/fa_IR/parts/parts_index_template.html",
     index_extractor=p.index_row_extractor,
     index_title="فهرست قطعات",
@@ -84,7 +90,11 @@ scientists = b.SecSpec(
     dst_template_path="scripts/templates/fa_IR/scientists/scientists_template.html",
     src_template_path="scripts/templates/fa_IR/scientists/scientists_template.md",
     data_extractor=s.md_data_extractor,
-    # rules=b.Rules(move_selected_data=False),
+    rules=b.Rules(
+        copy_selected_data=True,
+        recursive_copy=True,
+        overwrite_when_copying=True,
+    ),
     index_template_path="scripts/templates/fa_IR/scientists/scientists_index_template.html",
     index_extractor=s.index_row_extractor,
     index_title="فهرست دانشمندان",
@@ -97,10 +107,21 @@ root = b.SecSpec(
     name="fa_ir",
     dst_path="docs/fa_IR",
     url_prefix=c.FA_IR_PREFIX,
-    sub_specs=[parts, scientists],
+    src_path="scripts/original_content/fa_IR",
+    sub_secs=[parts, scientists],
+    generate_index=False,
+    generate_qr=False,
+    generate_qrpages=False,
     rules=b.Rules(
         recursive_convert=False,
-        move_selected_data=False,
-        recursive_move=False
+        copy_selected_data=True,
+        recursive_copy=True,
+        copy_selectors=(
+            b.MATCH_HTML,
+            b.MATCH_CSS,
+            b.MATCH_TTF,
+            b.MATCH_WOFF,
+            b.MATCH_WOFF2
+        )
     )
 )
