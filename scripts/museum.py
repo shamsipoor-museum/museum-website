@@ -41,7 +41,7 @@ def main():
         document_root,
         qr_pages_rows=1,
         qr_pages_cols=4,
-        verbose=True
+        # verbose=True
     )
 
 
