@@ -132,8 +132,14 @@ def re_collection_searcher(iterable, string):
     return False
 
 
-def _vpg(prefix: str, sep: Optional[str] = " ", end: Optional[str] = "\n",
+def _vpg(verbose: bool, prefix: str, sep: Optional[str] = " ", end: Optional[str] = "\n",
          file: Optional[str] = None, flush: bool = False):
+    if not verbose:
+        def vp(*values: object, sep: Optional[str] = sep, end: Optional[str] = end,
+               file: Optional[str] = file, flush: bool = flush):
+            return
+        return vp
+
     print(prefix.center(60, "═"))
 
     def vp(*values: object, sep: Optional[str] = sep, end: Optional[str] = end,
@@ -145,18 +151,16 @@ def _vpg(prefix: str, sep: Optional[str] = " ", end: Optional[str] = "\n",
 def content_generator(sec: SecSpec, exceptions: Iterable[str] = CE,
                       verbose: bool = False, _nuke_warning: bool = True):
     if _nuke_warning and sec.rules.nuke_dst_path:
-        _vpg("[! WARNING !]")("'sec.rules.nuke_dst_path' is set to True and it "
-              "seems like you are running 'content_generator' directly"
+        _vpg(True, "[! WARNING !]")("'sec.rules.nuke_dst_path' is set to True "
+              "and it seems like you are running 'content_generator' directly"
               "'content_generator' won't enforce that rule, consider running the"
               "'generator' instead")
-    if verbose:
-        vp = _vpg("[content_generator]")
+    vp = _vpg(verbose, "[content_generator]")
     if sec.custom_data_generator is not None:
-        if verbose:
-            vp("'sec.custom_data_generator' is not None, delegating content generation to it")
+        vp("'sec.custom_data_generator' is not None, delegating content generation to it")
         return sec.custom_data_generator(sec, exceptions)
     exceptions = re_collection_compiler(exceptions)
-    if verbose and sec.rules.convert_selected_data and not (sec.data_extractor or sec.dst_template_path):
+    if sec.rules.convert_selected_data and not (sec.data_extractor or sec.dst_template_path):
         vp("WARNING: 'sec.rules.convert_selected_data' is True but one of "
            "'sec.data_extractor' or 'sec.dst_template_path' is not provided, "
            "convertion needs both of these values to be provided with "
@@ -265,9 +269,8 @@ def index_generator(sec: SecSpec, exceptions: Iterable[str] = CE,
 
 
 def qr_imgs_generator(sec: SecSpec, exceptions: Iterable[str] = CE, verbose: bool = False):
-    if verbose:
-        vp = _vpg("[qr_imgs_generator]")
-    if verbose and not sec.url_prefix:
+    vp = _vpg(verbose, "[qr_imgs_generator]")
+    if not sec.url_prefix:
         vp("'qr_imgs' is True but 'sec.url_prefix' is not provided; skipping "
            "QR Image generation")
         return
@@ -278,8 +281,7 @@ def qr_imgs_generator(sec: SecSpec, exceptions: Iterable[str] = CE, verbose: boo
                 if re_collection_searcher(exceptions, f):
                     continue
                 f = osp.splitext(f)[0]
-                if verbose:
-                    vp("Generating QR Image for", sec.url_prefix + f)
+                vp("Generating QR Image for", sec.url_prefix + f)
                 qrcode = qr.make(sec.url_prefix + f)
                 # Preparing directory structure if sec.dst_path is nuked
                 qr_dirpath = osp.join(sec.dst_path, sec.qr_dirname)
@@ -339,9 +341,8 @@ def qr_pages_generator(
     title_fmt: str = "QR Codes {i}",
     verbose: bool = True
 ):
-    if verbose:
-        vp = _vpg("[qr_pages_generator]")
-    if verbose and not sec.qrpages_template_path:
+    vp = _vpg(verbose, "[qr_pages_generator]")
+    if not sec.qrpages_template_path:
         vp("'sec.qrpages_template_path' is not provided; skipping the QR "
            "Pages generation")
         return
@@ -362,8 +363,7 @@ def qr_pages_generator(
             osp.join(sec.dst_path, sec.qrpages_dirname),
             filename_fmt.format(i=i)
         )
-        if verbose:
-            vp("Writing QR Page: '{}'".format(dst_path))
+        vp("Writing QR Page: '{}'".format(dst_path))
         # Preparing directory structure if sec.dst_path is nuked
         os.makedirs(osp.dirname(dst_path), exist_ok=True)
         if sec.custom_qr_table_writer:
@@ -386,11 +386,9 @@ def qr_generator(
     qr_pages_title_fmt: str = "QR Codes {i}",
     verbose: bool = False,
 ):
-    if verbose:
-        vp = _vpg("[qr_codes_generator]")
+    vp = _vpg(verbose, "[qr_generator]")
     if sec.custom_qr_generator:
-        if verbose:
-            vp("Using 'sec.custom_qr_generator'")
+        vp("Using 'sec.custom_qr_generator'")
         return sec.custom_qr_generator(
             sec,
             qr_imgs_exceptions,
@@ -402,13 +400,14 @@ def qr_generator(
             qr_pages_title_fmt,
             verbose
         )
+    vp("Generating QR Images")
     if qr_imgs and sec.url_prefix:
         if sec.custom_qr_img_generator:
-            if verbose:
-                vp("Using 'sec.custom_qr_img_generator'")
+            vp("Using 'sec.custom_qr_img_generator'")
             sec.custom_qr_img_generator(sec, qr_imgs_exceptions, verbose)
         else:
             qr_imgs_generator(sec, qr_imgs_exceptions, verbose)
+    vp("Generating QR Pages")
     if qr_pages:
         qr_pages_generator(
             sec,
@@ -449,9 +448,8 @@ def generator(sec: SecSpec, content_exceptions: Iterable[str] = CE,
               qr_pages_filename_fmt: str = "qr_codes_{i}.html",
               qr_pages_title_fmt: str = "QR Codes {i}", verbose: bool = False,
               args_pass_through: bool = True):
-    if verbose:
-        vp = _vpg("[generator]")
-        vp("Beginning with section {} ({})".format(sec.name, sec.url_prefix))
+    vp = _vpg(verbose, "[generator]")
+    vp("Beginning with section {} ({})".format(sec.name, sec.url_prefix))
     if sec.rules.nuke_dst_path:
         nuke_handler(sec)
     if sec.src_path is not None and sec.dst_path is not None:
@@ -463,7 +461,7 @@ def generator(sec: SecSpec, content_exceptions: Iterable[str] = CE,
         if index and sec.generate_index and sec.index_extractor is not None:
             vp("'sec.data_extractor' is provided; generating content")
             index_generator(sec, exceptions=index_exceptions, verbose=verbose)
-        elif verbose:
+        else:
             vp("'index' is False or 'sec.index_extractor' is None; skipping index generation")
 
         if qr and sec.generate_qr:
@@ -471,9 +469,9 @@ def generator(sec: SecSpec, content_exceptions: Iterable[str] = CE,
             qr_generator(sec, qr_imgs, qr_imgs_exceptions, qr_pages,
                                qr_pages_exceptions, qr_pages_rows, qr_pages_cols,
                                qr_pages_filename_fmt, qr_pages_title_fmt, verbose=verbose)
-        elif verbose:
+        else:
             vp("'qr' is False; skipping QR Codes generation")
-    elif verbose:
+    else:
         vp("One (or both) of 'sec.src_path' and 'sec.dst_path' is 'None'; "
            "skipping to the sub_specs if any")
     for s in sec.sub_secs:

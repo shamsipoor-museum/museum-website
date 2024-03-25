@@ -29,9 +29,10 @@ document_root = b.SecSpec(
     generate_qrpages=False,
     rules=b.Rules(
         # nuke_dst_path=True,  # It did pass the test and we don't need it anymore
-        copy_selected_data=True,
         recursive_convert=False,
+        copy_selected_data=True,
         recursive_copy=False,
+        overwrite_when_copying=True,
     )
 )
 

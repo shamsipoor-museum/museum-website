@@ -122,6 +122,7 @@ root = b.SecSpec(
             b.MATCH_TTF,
             b.MATCH_WOFF,
             b.MATCH_WOFF2
-        )
+        ),
+        overwrite_when_copying=True,
     )
 )
