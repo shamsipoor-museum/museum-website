@@ -16,7 +16,7 @@
 from os import path as osp
 from typing import Collection, Optional, Union
 
-from attrs import asdict, define, frozen, make_class, Factory
+from attrs import frozen
 from bs4 import BeautifulSoup
 import frontmatter as fm
 
@@ -42,9 +42,7 @@ class ScientistTable:
     tags: Optional[Union[str, Collection[str]]] = None
 
 
-# (slots=False) is there because we have to have access to __dict__, and
-# __dict__ won't be available when using slots
-@frozen(slots=False)
+@frozen
 class ScientistData:
     title: Optional[str] = None
     header: Optional[str] = None

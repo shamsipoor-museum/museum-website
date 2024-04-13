@@ -16,11 +16,10 @@
 import os
 from os import path as osp
 # from datetime import date
-from typing import Any, Collection, Optional, Union, Type, Callable, Tuple, Dict
+from typing import Optional, Union, Collection
 
-from attrs import asdict, define, frozen, make_class, Factory
+from attrs import asdict, frozen
 from bs4 import BeautifulSoup
-from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 import frontmatter as fm
 
 import blogger as b
@@ -38,15 +37,13 @@ class PartTable:
     manufacturer_country: str = ""
 
 
-# (slots=False) is there because we have to have access to __dict__, and
-# __dict__ won't be available when using slots
-@frozen(slots=False)
+@frozen
 class PartData:
     title: Optional[str] = None
     header: Optional[str] = None
     pic: Optional[str] = None
     table: Optional[PartTable] = None
-    explanation_paragraphs: Optional[Union[str, Tuple[str]]] = None
+    explanation_paragraphs: Optional[Union[str, Collection[str]]] = None
 
 
 @frozen
@@ -70,7 +67,7 @@ def md_table_extractor(loaded_file: fm.Post) -> PartTable:
 
 def md_data_extractor(dirpath: str, f: str) -> PartData:
     fl = fm.load(osp.join(dirpath, f))
-    # print("[debug]", fl.__dict__)
+    # print("[debug]", asdict(fl))
     return PartData(
         title=fl["title"],
         header=fl["header"],

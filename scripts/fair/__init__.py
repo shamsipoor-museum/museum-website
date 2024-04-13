@@ -13,10 +13,9 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/>.
 
-import os
-from os import path as osp
 from typing import List, Union
 
+from attrs import asdict
 from jinja2 import Template
 
 import blogger as b
@@ -57,7 +56,7 @@ def custom_qr_table_writer(sec: b.SecSpec, table: List[List[str]], template: Tem
 def md_data_writer(pd: Union[s.ScientistData, p.PartData],
                    template: Template, path: str, mode: str = "w"):
     with open(path, mode) as f:
-        f.write(template.render(pd.__dict__))
+        f.write(template.render(asdict(pd)))
 
 
 parts = b.SecSpec(

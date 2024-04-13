@@ -16,17 +16,17 @@
 import sys
 import os
 from os import path as osp
-from dataclasses import dataclass
 from typing import Optional, Union
 
 # from mako.template import Template
+from attrs import frozen, asdict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import pdf_extractor as pe
 import word_extractor as we
 
 
-@dataclass
+@frozen
 class PartData:
     part_title: str = ""
     part_name: str = ""
@@ -68,7 +68,7 @@ def extract_part_data(src,
 
 def write_templated_part_data(pd, template, path, mode="w"):
     with open(path, mode) as f:
-        f.write(template.render(pd.__dict__))
+        f.write(template.render(asdict(pd)))
 
 
 def main(src_dir: Optional[str] = None):

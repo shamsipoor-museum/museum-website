@@ -16,16 +16,12 @@
 import sys
 import os
 from os import path as osp
-from datetime import date
-from typing import Any, Optional, Union, Type, Callable, Tuple
+from typing import Any, Optional, Callable, Tuple
 
-from attrs import asdict, define, frozen, make_class, Factory
-from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
-from markdownify import markdownify as md
+# from markdownify import markdownify as md
 
 import blogger as b
-import museum as m
 
 
 def html_to_md(

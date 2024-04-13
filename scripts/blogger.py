@@ -20,7 +20,7 @@ import re
 from typing import Collection, Optional, Type, Callable, Iterable, List, Dict, Any
 
 # from pprint import pprint
-from attrs import asdict, define, frozen, make_class, Factory
+from attrs import asdict, define, frozen, Factory
 from jinja2 import Environment, FileSystemLoader, select_autoescape, Template
 import qrcode as qr
 
@@ -89,7 +89,7 @@ class SecSpec:
 
     dst_template_path: Optional[str] = None
     # function to take a SecSpec, a filename relative to 'dst_path' and
-    # Dict[str, Any] (data_spec.__dict__), templates the DataSpec dict to
+    # Dict[str, Any] (asdict(data_spec)), templates the DataSpec dict to
     # 'src_template_path' and writes the resulting file to the filename
     # relative to 'dst_path'
     custom_data_writer: Optional[Callable[[Any, str, Template, Dict[str, Any]], None]] = None
@@ -189,12 +189,12 @@ def content_generator(sec: SecSpec, exceptions: Iterable[str] = CE,
                     os.makedirs(osp.dirname(dst_f_path), exist_ok=True)
                     if sec.custom_data_writer:
                         vp("using 'custom_data_writer'")
-                        sec.custom_data_writer(sec, dst_f_path, template, sec.data_extractor(dirpath, f).__dict__)
+                        sec.custom_data_writer(sec, dst_f_path, template, asdict(sec.data_extractor(dirpath, f)))
                     else:
                         with open(dst_f_path, mode="w") as dst_f:
                             dst_f.write(
                                 template.render(
-                                    sec.data_extractor(dirpath, f).__dict__
+                                    asdict(sec.data_extractor(dirpath, f))
                                 )
                             )
                     # If copy and overwrite are both True, the following code
@@ -317,10 +317,12 @@ def qr_pages_extractor(sec: SecSpec, rows: int = 5, cols: int = 4,
                         table[-1].append(qr_basename)
                         # if qr_name_attribute:
                         #     table[-1].append(
-                        #         sec.data_extractor(
-                        #             dirpath=sec.src_path,
-                        #             f=qr_basename + ".md"
-                        #         ).__dict__[qr_name_attribute]
+                        #         asdict(
+                        #             sec.data_extractor(
+                        #                 dirpath=sec.src_path,
+                        #                 f=qr_basename + ".md"
+                        #             )
+                        #         )[qr_name_attribute]
                         #     )
     return pages
 

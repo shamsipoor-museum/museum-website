@@ -16,10 +16,9 @@
 import sys
 import os
 from os import path as osp
-from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional
 
-from attrs import asdict, define, frozen, make_class, Factory
+from attrs import frozen
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
